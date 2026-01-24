@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: epi-electronics
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
