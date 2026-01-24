@@ -1,0 +1,96 @@
+/* ==========================================
+   EPI ELECTRONICS - APPLE-INSPIRED MINIMALIST
+   Clean, Professional, Corporate Design
+   ========================================== */
+
+/* Google Fonts - SF Pro alternative */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ===== CSS VARIABLES ===== */
+:root {
+    /* Apple-inspired Colors */
+    --white: #ffffff;
+    --off-white: #fbfbfd;
+    --gray-50: #f5f5f7;
+    --gray-100: #e8e8ed;
+    --gray-200: #d2d2d7;
+    --gray-300: #86868b;
+    --gray-400: #6e6e73;
+    --gray-500: #515154;
+    --gray-900: #1d1d1f;
+    --black: #000000;
+
+    /* Corporate Blue Accent */
+    --blue-primary: #0071e3;
+    --blue-hover: #0077ed;
+    --blue-light: #147ce5;
+
+    /* Typography */
+    --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+
+    /* Shadows - Subtle Apple style */
+    --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.04);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.12);
+
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-base: 0.25s ease;
+    --transition-slow: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+
+    /* Spacing */
+    --section-padding: 120px 24px;
+    --container-max: 1200px;
+    --border-radius: 12px;
+    --border-radius-lg: 20px;
+}
+
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--font-primary);
+    background: var(--white);
+    color: var(--gray-900);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-primary);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--gray-900);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-base);
+}
+
+/* Utility Classes */
+.section-divider {
+    display: none;
+}
