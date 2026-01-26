@@ -3,7 +3,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const productsData = {
   composants: {
-    title: "🧩 Composants électroniques",
+    title: " Composants électroniques",
     description: "Nous proposons une large gamme de composants pour vos projets.",
     images: [
       { src: "https://images.unsplash.com/photo-1587202372775-98927f27b4ba?auto=format&fit=crop&w=600&q=80", text: "Cartes électroniques haute performance" },
@@ -11,7 +11,7 @@ const productsData = {
     ]
   },
   robots: {
-    title: "🤖 Equipements de votre choix",
+    title: " Equipements de votre choix",
     description: "Toute sorte d'imprimante, de projecteurs et autre equipements dont vous avez besoin dans votre bureau.",
     images: [
       { src: "https://images.unsplash.com/photo-1581090700227-4c4d3f0d7d83?auto=format&fit=crop&w=600&q=80", text: "" },
@@ -19,7 +19,7 @@ const productsData = {
     ]
   },
   ordinateurs: {
-    title: "💻 Ordinateurs",
+    title: " Ordinateurs",
     description: "Découvrez nos ordinateurs performants pour tous vos besoins professionnels et personnels.",
     images: [
       { src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80", text: "" },
@@ -31,9 +31,9 @@ const productsData = {
 }
 
 const slides = [
-    { id: 'composants', icon: '🧩', title: 'Composants Électroniques', subtitle: 'Cartes, Capteurs & Modules' },
-    { id: 'robots', icon: '🤖', title: 'Équipements de Bureau', subtitle: 'Imprimantes & Projecteurs' },
-    { id: 'ordinateurs', icon: '💻', title: 'Ordinateurs', subtitle: 'Performance & Puissance' }
+    { id: 'composants', icon: '', title: 'Composants Électroniques', subtitle: 'Cartes, Capteurs & Modules', image: '/assets/img/products/composants.png' },
+    { id: 'robots', icon: '', title: 'Équipements de Bureau', subtitle: 'Imprimantes & Projecteurs', image: '/assets/img/products/office-equipment.png' },
+    { id: 'ordinateurs', icon: '', title: 'Ordinateurs', subtitle: 'Performance & Puissance', image: '/assets/img/products/computers.png' }
 ]
 
 const currentSlide = ref(0)
@@ -106,6 +106,7 @@ onUnmounted(() => {
             class="product-slide"
             :class="getSlideClass(index)"
             @click="openProduct(slide.id)"
+            :style="{ backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${slide.image})`, backgroundSize: 'cover', backgroundPosition: 'center' }"
         >
           <div class="slide-content">
             <div class="slide-icon">{{ slide.icon }}</div>
