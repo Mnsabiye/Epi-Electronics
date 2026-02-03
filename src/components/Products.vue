@@ -44,7 +44,7 @@ const slideInterval = ref(null)
 const showModal = ref(false)
 const selectedProduct = ref(null)
 const canvasRef = ref(null)
-let animationFrameId
+let resizeObserver = null
 
 const startSlideshow = () => {
   stopSlideshow()
@@ -90,57 +90,54 @@ const getSlideClass = (index) => {
     return ''
 }
 
+const drawGrid = (canvas) => {
+  const ctx = canvas.getContext('2d')
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  
+  const gridSize = 80
+  
+  ctx.strokeStyle = 'rgba(59, 116, 238, 0.08)'
+  ctx.lineWidth = 1
+  
+  for (let y = 0; y <= canvas.height; y += gridSize) {
+    ctx.beginPath()
+    ctx.moveTo(0, y)
+    ctx.lineTo(canvas.width, y)
+    ctx.stroke()
+  }
+  
+  for (let x = 0; x <= canvas.width; x += gridSize) {
+    ctx.beginPath()
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x, canvas.height)
+    ctx.stroke()
+  }
+  
+  ctx.fillStyle = 'rgba(107, 87, 255, 0.2)'
+  for (let x = 0; x <= canvas.width; x += gridSize) {
+    for (let y = 0; y <= canvas.height; y += gridSize) {
+      ctx.beginPath()
+      ctx.arc(x, y, 1.5, 0, Math.PI * 2)
+      ctx.fill()
+    }
+  }
+}
+
 const initCanvas = () => {
   const canvas = canvasRef.value
   if (!canvas) return
   
-  const ctx = canvas.getContext('2d')
-  const resizeObs = new ResizeObserver(() => {
+  const updateCanvasSize = () => {
     const rect = canvas.getBoundingClientRect()
     canvas.width = rect.width
     canvas.height = rect.height
-  })
-  resizeObs.observe(canvas)
-  
-  const rect = canvas.getBoundingClientRect()
-  canvas.width = rect.width
-  canvas.height = rect.height
-
-  const drawGrid = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    
-    const gridSize = 80
-    
-    ctx.strokeStyle = 'rgba(59, 116, 238, 0.08)'
-    ctx.lineWidth = 1
-    
-    for (let y = 0; y <= canvas.height; y += gridSize) {
-      ctx.beginPath()
-      ctx.moveTo(0, y)
-      ctx.lineTo(canvas.width, y)
-      ctx.stroke()
-    }
-    
-    for (let x = 0; x <= canvas.width; x += gridSize) {
-      ctx.beginPath()
-      ctx.moveTo(x, 0)
-      ctx.lineTo(x, canvas.height)
-      ctx.stroke()
-    }
-    
-    ctx.fillStyle = 'rgba(107, 87, 255, 0.2)'
-    for (let x = 0; x <= canvas.width; x += gridSize) {
-      for (let y = 0; y <= canvas.height; y += gridSize) {
-        ctx.beginPath()
-        ctx.arc(x, y, 1.5, 0, Math.PI * 2)
-        ctx.fill()
-      }
-    }
-    
-    animationFrameId = requestAnimationFrame(drawGrid)
+    drawGrid(canvas)
   }
   
-  drawGrid()
+  resizeObserver = new ResizeObserver(updateCanvasSize)
+  resizeObserver.observe(canvas)
+  
+  updateCanvasSize()
 }
 
 onMounted(() => {
@@ -150,7 +147,7 @@ onMounted(() => {
 
 onUnmounted(() => {
     stopSlideshow()
-    if (animationFrameId) cancelAnimationFrame(animationFrameId)
+    if (resizeObserver) resizeObserver.disconnect()
 })
 </script>
 
@@ -218,7 +215,7 @@ onUnmounted(() => {
     
           <div class="product-gallery">
             <div v-for="(img, idx) in selectedProduct.images" :key="idx" class="product-gallery-item fade-in">
-                <img :src="img.src" :alt="img.text || 'Product Image'">
+                <img :src="img.src" :alt="img.text || 'Product Image'" loading="lazy">
                 <p v-if="img.text">{{ img.text }}</p>
             </div>
           </div>
@@ -335,6 +332,7 @@ onUnmounted(() => {
   margin-bottom: 32px;
   background: var(--gradient-cta);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
   filter: drop-shadow(0 4px 6px rgba(107, 87, 255, 0.3));

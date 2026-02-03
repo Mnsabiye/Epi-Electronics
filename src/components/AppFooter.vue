@@ -22,7 +22,7 @@
       </div>
       <div class="footer-section">
         <h3>Contact</h3>
-        <p>Telephone: (+257) 71 98 79 35</p>
+        <p>Telephone: (+257) 72 01 30 10</p>
         <p>Email: <a href="mailto:contact@epielectronics.store">contact@epielectronics.store</a></p>
         <p>Adresse : Bujumbura, Burundi</p>
       </div>

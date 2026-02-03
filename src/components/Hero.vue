@@ -2,62 +2,60 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const canvasRef = ref(null)
-let animationFrameId
+
+let resizeObserver = null
+
+const drawGrid = (canvas) => {
+  const ctx = canvas.getContext('2d')
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+  
+  const gridSize = 80
+  
+  ctx.strokeStyle = 'rgba(59, 116, 238, 0.12)'
+  ctx.lineWidth = 1
+  
+  // Horizontal lines
+  for (let y = 0; y <= canvas.height; y += gridSize) {
+    ctx.beginPath()
+    ctx.moveTo(0, y)
+    ctx.lineTo(canvas.width, y)
+    ctx.stroke()
+  }
+  
+  // Vertical lines
+  for (let x = 0; x <= canvas.width; x += gridSize) {
+    ctx.beginPath()
+    ctx.moveTo(x, 0)
+    ctx.lineTo(x, canvas.height)
+    ctx.stroke()
+  }
+  
+  // Add subtle glow dots at intersections
+  ctx.fillStyle = 'rgba(107, 87, 255, 0.3)'
+  for (let x = 0; x <= canvas.width; x += gridSize) {
+    for (let y = 0; y <= canvas.height; y += gridSize) {
+      ctx.beginPath()
+      ctx.arc(x, y, 2, 0, Math.PI * 2)
+      ctx.fill()
+    }
+  }
+}
 
 const initCanvas = () => {
   const canvas = canvasRef.value
   if (!canvas) return
   
-  const ctx = canvas.getContext('2d')
-  const resizeObs = new ResizeObserver(() => {
+  const updateCanvasSize = () => {
     const rect = canvas.getBoundingClientRect()
     canvas.width = rect.width
     canvas.height = rect.height
-  })
-  resizeObs.observe(canvas)
-  
-  const rect = canvas.getBoundingClientRect()
-  canvas.width = rect.width
-  canvas.height = rect.height
-
-  const drawGrid = () => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    
-    const gridSize = 80
-    
-    ctx.strokeStyle = 'rgba(59, 116, 238, 0.12)'
-    ctx.lineWidth = 1
-    
-    // Horizontal lines
-    for (let y = 0; y <= canvas.height; y += gridSize) {
-      ctx.beginPath()
-      ctx.moveTo(0, y)
-      ctx.lineTo(canvas.width, y)
-      ctx.stroke()
-    }
-    
-    // Vertical lines
-    for (let x = 0; x <= canvas.width; x += gridSize) {
-      ctx.beginPath()
-      ctx.moveTo(x, 0)
-      ctx.lineTo(x, canvas.height)
-      ctx.stroke()
-    }
-    
-    // Add subtle glow dots at intersections
-    ctx.fillStyle = 'rgba(107, 87, 255, 0.3)'
-    for (let x = 0; x <= canvas.width; x += gridSize) {
-      for (let y = 0; y <= canvas.height; y += gridSize) {
-        ctx.beginPath()
-        ctx.arc(x, y, 2, 0, Math.PI * 2)
-        ctx.fill()
-      }
-    }
-    
-    animationFrameId = requestAnimationFrame(drawGrid)
+    drawGrid(canvas) // Redraw only on resize
   }
   
-  drawGrid()
+  resizeObserver = new ResizeObserver(updateCanvasSize)
+  resizeObserver.observe(canvas)
+  
+  updateCanvasSize() // Initial draw
 }
 
 onMounted(() => {
@@ -65,7 +63,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (animationFrameId) cancelAnimationFrame(animationFrameId)
+  if (resizeObserver) resizeObserver.disconnect()
 })
 </script>
 
