@@ -3,37 +3,39 @@ import { ref, onMounted, onUnmounted, computed } from 'vue'
 
 const productsData = {
   composants: {
-    title: " Composants électroniques",
-    description: "Nous proposons une large gamme de composants pour vos projets.",
+    title: "Accessoires & Périphériques",
+    description: "Une gamme complète d'accessoires pour optimiser votre setup.",
     images: [
-      { src: "https://images.unsplash.com/photo-1587202372775-98927f27b4ba?auto=format&fit=crop&w=600&q=80", text: "Cartes électroniques haute performance" },
-      { src: "https://images.unsplash.com/photo-1581091870622-9c58c181fbbd?auto=format&fit=crop&w=600&q=80", text: "Capteurs de précision" }
+      { src: "/assets/img/products/mouse_top.png", text: "Souris Ergonomique (Vue de dessus)" },
+      { src: "/assets/img/products/mouse_side.png", text: "Souris Ergonomique (Profil)" },
+      { src: "/assets/img/products/mechanical_keyboard.png", text: "Clavier Mécanique RGB" },
+      { src: "/assets/img/products/wireless_headset.png", text: "Casque Gaming Sans Fil" }
     ]
   },
   robots: {
-    title: " Equipements de votre choix",
-    description: "Toute sorte d'imprimante, de projecteurs et autre equipements dont vous avez besoin dans votre bureau.",
+    title: "Equipements de Bureau",
+    description: "Imprimantes, écrans et solutions audio pour votre espace de travail.",
     images: [
-      { src: "https://images.unsplash.com/photo-1581090700227-4c4d3f0d7d83?auto=format&fit=crop&w=600&q=80", text: "" },
-      { src: "https://images.unsplash.com/photo-1594007654729-e0c7a0c3e1f3?auto=format&fit=crop&w=600&q=80", text: "" }
+      { src: "/assets/img/products/epson_printer.png", text: "Imprimante EcoTank Haute Capacité" },
+      { src: "/assets/img/products/jbl_speaker.png", text: "Enceinte Portable JBL" },
+      { src: "/assets/img/products/gaming_monitor.png", text: "Moniteur Incurvé Ultrawide" }
     ]
   },
   ordinateurs: {
-    title: " Ordinateurs",
-    description: "Découvrez nos ordinateurs performants pour tous vos besoins professionnels et personnels.",
+    title: "Ordinateurs Portables",
+    description: "Performance et mobilité pour les professionnels et les créatifs.",
     images: [
-      { src: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=600&q=80", text: "" },
-      { src: "https://images.unsplash.com/photo-1587202372775-3d63b9e6f4e0?auto=format&fit=crop&w=600&q=80", text: "" },
-      { src: "https://images.unsplash.com/photo-1593642532973-d31b6557fa68?auto=format&fit=crop&w=600&q=80", text: "" },
-      { src: "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=600&q=80", text: "" }
+      { src: "/assets/img/products/dell_laptop_closed.png", text: "Dell Latitude Professionnel" },
+      { src: "/assets/img/products/hp_laptop_open.png", text: "HP Ultra-fin (Ouvert)" },
+      { src: "/assets/img/products/hp_laptop_closed.png", text: "HP Ultra-fin (Fermé)" }
     ]
   }
 }
 
 const slides = [
-    { id: 'composants', icon: '', title: 'Composants Électroniques', subtitle: 'Cartes, Capteurs & Modules', image: '/assets/img/products/composants.png' },
-    { id: 'robots', icon: '', title: 'Équipements de Bureau', subtitle: 'Imprimantes & Projecteurs', image: '/assets/img/products/office-equipment.png' },
-    { id: 'ordinateurs', icon: '', title: 'Ordinateurs', subtitle: 'Performance & Puissance', image: '/assets/img/products/computers.png' }
+    { id: 'composants', icon: '⌨️', title: 'Accessoires & Périphériques', subtitle: 'Claviers, Souris & Audio', image: '/assets/img/products/mechanical_keyboard.png' },
+    { id: 'robots', icon: '🖨️', title: 'Équipements de Bureau', subtitle: 'Imprimantes & Moniteurs', image: '/assets/img/products/epson_printer.png' },
+    { id: 'ordinateurs', icon: '💻', title: 'Ordinateurs Portables', subtitle: 'Performance & Design', image: '/assets/img/products/hp_laptop_open.png' }
 ]
 
 const currentSlide = ref(0)
@@ -41,6 +43,8 @@ const isPlaying = ref(true)
 const slideInterval = ref(null)
 const showModal = ref(false)
 const selectedProduct = ref(null)
+const canvasRef = ref(null)
+let animationFrameId
 
 const startSlideshow = () => {
   stopSlideshow()
@@ -86,17 +90,74 @@ const getSlideClass = (index) => {
     return ''
 }
 
+const initCanvas = () => {
+  const canvas = canvasRef.value
+  if (!canvas) return
+  
+  const ctx = canvas.getContext('2d')
+  const resizeObs = new ResizeObserver(() => {
+    const rect = canvas.getBoundingClientRect()
+    canvas.width = rect.width
+    canvas.height = rect.height
+  })
+  resizeObs.observe(canvas)
+  
+  const rect = canvas.getBoundingClientRect()
+  canvas.width = rect.width
+  canvas.height = rect.height
+
+  const drawGrid = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    
+    const gridSize = 80
+    
+    ctx.strokeStyle = 'rgba(59, 116, 238, 0.08)'
+    ctx.lineWidth = 1
+    
+    for (let y = 0; y <= canvas.height; y += gridSize) {
+      ctx.beginPath()
+      ctx.moveTo(0, y)
+      ctx.lineTo(canvas.width, y)
+      ctx.stroke()
+    }
+    
+    for (let x = 0; x <= canvas.width; x += gridSize) {
+      ctx.beginPath()
+      ctx.moveTo(x, 0)
+      ctx.lineTo(x, canvas.height)
+      ctx.stroke()
+    }
+    
+    ctx.fillStyle = 'rgba(107, 87, 255, 0.2)'
+    for (let x = 0; x <= canvas.width; x += gridSize) {
+      for (let y = 0; y <= canvas.height; y += gridSize) {
+        ctx.beginPath()
+        ctx.arc(x, y, 1.5, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    }
+    
+    animationFrameId = requestAnimationFrame(drawGrid)
+  }
+  
+  drawGrid()
+}
+
 onMounted(() => {
     startSlideshow()
+    initCanvas()
 })
 
 onUnmounted(() => {
     stopSlideshow()
+    if (animationFrameId) cancelAnimationFrame(animationFrameId)
 })
 </script>
 
 <template>
   <section class="products" id="products">
+    <canvas ref="canvasRef" class="grid-canvas"></canvas>
+    
     <h2>Nos Produits</h2>
     <div class="product-slideshow-container" @mouseenter="stopSlideshow" @mouseleave="isPlaying && startSlideshow()">
       <div class="product-slideshow">
@@ -168,17 +229,34 @@ onUnmounted(() => {
 
 <style scoped>
 .products {
-  padding: var(--section-padding);
-  background: var(--white);
+  padding: 100px 24px;
+  background: var(--color-background);
   text-align: center;
   position: relative;
   overflow: hidden;
 }
 
+.grid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .products h2 {
   font-size: clamp(40px, 5vw, 56px);
-  margin-bottom: 40px;
-  color: var(--gray-900);
+  margin-bottom: 60px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: var(--gradient-cta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
 }
 
 .product-slideshow-container {
@@ -187,6 +265,7 @@ onUnmounted(() => {
   max-width: 1400px;
   margin: 0 auto 40px;
   perspective: 1000px;
+  z-index: 1;
 }
 
 .product-slideshow {
@@ -199,92 +278,86 @@ onUnmounted(() => {
 
 .product-slide {
   position: absolute;
-  width: 500px;
-  height: 500px;
-  background: #000;
-  border-radius: 32px;
+  width: 600px;
+  height: 480px;
+  background: var(--color-surface);
+  border-radius: var(--radius-xl);
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 60px;
   opacity: 0;
   transform: scale(0.6) translateX(200%);
   transition: all 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-lg);
   z-index: 1;
+  border: 1px solid var(--color-border);
 }
 
 .product-slide.active {
   opacity: 1;
   transform: scale(1) translateX(0);
   z-index: 10;
-  box-shadow: 0 0 50px rgba(0, 113, 227, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--shadow-xl), var(--shadow-glow);
+  border-color: var(--color-primary);
+}
+
+.product-slide:nth-child(even).active {
+    background: linear-gradient(135deg, var(--color-surface) 0%, rgba(107, 87, 255, 0.1) 100%);
 }
 
 .product-slide.prev {
-  opacity: 0.6;
-  transform: scale(0.7) translateX(-140%);
+  opacity: 0.4;
+  transform: scale(0.8) translateX(-110%);
   z-index: 5;
-  filter: blur(2px);
+  filter: blur(1px);
 }
 
 .product-slide.next {
-  opacity: 0.6;
-  transform: scale(0.7) translateX(140%);
+  opacity: 0.4;
+  transform: scale(0.8) translateX(110%);
   z-index: 5;
-  filter: blur(2px);
+  filter: blur(1px);
 }
 
 .slide-content {
   position: relative;
   z-index: 2;
-  text-align: center;
+  text-align: left;
+  width: 100%;
 }
 
 .slide-icon {
-  font-size: 80px;
+  font-size: 64px;
   margin-bottom: 32px;
-  filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.3));
+  background: var(--gradient-cta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  filter: drop-shadow(0 4px 6px rgba(107, 87, 255, 0.3));
 }
 
 .product-slide h3 {
-  color: #fff;
-  font-size: 36px;
+  color: var(--color-text);
+  font-size: 32px;
   font-weight: 700;
-  margin-bottom: 12px;
-  background: linear-gradient(180deg, #fff 0%, #a1a1a6 100%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin-bottom: 16px;
+  background: none;
+  -webkit-text-fill-color: initial;
 }
 
 .product-slide p {
-  color: #86868b;
+  color: var(--color-text-secondary);
   font-size: 18px;
   font-weight: 500;
+  line-height: 1.6;
 }
 
 .slide-glow {
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: conic-gradient(transparent, rgba(0, 113, 227, 0.3), transparent 30%);
-  animation: rotate 4s linear infinite;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.product-slide.active:hover .slide-glow {
-  opacity: 1;
-}
-
-@keyframes rotate {
-  100% { transform: rotate(360deg); }
+  display: none;
 }
 
 .slideshow-controls {
@@ -293,23 +366,24 @@ onUnmounted(() => {
   justify-content: center;
   gap: 24px;
   margin-top: 20px;
-  background: rgba(0, 0, 0, 0.05);
+  background: var(--color-surface);
   padding: 12px 24px;
   border-radius: 50px;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
-  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
 }
 
 .control-btn, .pause-btn {
   background: none;
   border: none;
-  color: var(--gray-900);
-  font-size: 16px;
+  color: var(--color-text);
+  font-size: 18px;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -318,26 +392,28 @@ onUnmounted(() => {
 }
 
 .control-btn:hover, .pause-btn:hover {
-  background: rgba(0, 0, 0, 0.1);
+  background: var(--color-accent-bg);
+  color: var(--color-primary-light);
 }
 
 .slideshow-dots {
   display: flex;
-  gap: 8px;
+  gap: 12px;
 }
 
 .dot {
-  width: 8px;
-  height: 8px;
-  background: var(--gray-300);
+  width: 10px;
+  height: 10px;
+  background: var(--color-border);
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .dot.active {
-  background: var(--gray-900);
-  transform: scale(1.2);
+  background: var(--gradient-primary);
+  transform: scale(1.3);
+  box-shadow: var(--shadow-glow);
 }
 
 /* Modal Styles */
@@ -347,14 +423,13 @@ onUnmounted(() => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(13, 13, 13, 0.95);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
   z-index: 2000;
   opacity: 0;
   visibility: hidden;
   overflow-y: auto;
-  transition: opacity 0.4s ease, visibility 0.4s ease;
+  transition: opacity 0.4s ease;
 }
 
 .product-details.active {
@@ -363,28 +438,27 @@ onUnmounted(() => {
 }
 
 .modal-content-wrapper {
-  padding: 100px 24px 60px;
+  padding: 120px 24px 60px;
   max-width: 1000px;
   margin: 0 auto;
-  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .product-hero-title {
-  font-size: clamp(48px, 6vw, 80px);
-  font-weight: 700;
-  color: var(--black);
-  margin-bottom: 16px;
-  letter-spacing: -0.02em;
-  line-height: 1.1;
+  font-size: clamp(40px, 5vw, 64px);
+  margin-bottom: 24px;
+  text-align: center;
+  background: var(--gradient-cta);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .product-hero-subtitle {
-  font-size: clamp(20px, 3vw, 28px);
-  font-weight: 500;
-  color: var(--gray-500);
+  font-size: 20px;
+  color: var(--color-text-secondary);
+  text-align: center;
   max-width: 700px;
-  margin: 0 auto 40px;
-  line-height: 1.4;
+  margin: 0 auto 48px;
 }
 
 .product-actions {
@@ -395,94 +469,99 @@ onUnmounted(() => {
 }
 
 .apple-btn {
-  padding: 12px 28px;
-  font-size: 17px;
-  border-radius: 980px;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  padding: 16px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 16px;
   text-decoration: none;
-  font-weight: 400;
-  min-width: 140px;
+  transition: all 0.3s ease;
 }
 
 .apple-btn-primary {
-  background-color: var(--blue-primary);
+  background: var(--gradient-cta);
   color: white;
-  border: 1px solid var(--blue-primary);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
 }
 
 .apple-btn-primary:hover {
-  background-color: var(--blue-hover);
-  border-color: var(--blue-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-strong);
 }
 
 .apple-btn-secondary {
-  background-color: transparent;
-  color: var(--blue-primary);
-  border: 1px solid var(--blue-primary);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
 }
 
 .apple-btn-secondary:hover {
-  background-color: rgba(0, 113, 227, 0.08);
+  background: var(--color-surface-hover);
+  border-color: var(--color-primary);
 }
 
 .close-modal-btn {
   position: fixed;
   top: 32px;
   right: 32px;
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: rgba(220, 220, 220, 0.5);
-  border: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   font-size: 24px;
-  color: var(--gray-500);
+  color: var(--color-text);
   cursor: pointer;
   z-index: 2001;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(10px);
   transition: all 0.2s;
+  box-shadow: var(--shadow-md);
 }
 
 .close-modal-btn:hover {
-    background: rgba(200, 200, 200, 0.8);
-    color: var(--black);
+    transform: rotate(90deg);
+    color: var(--color-primary-light);
+    box-shadow: var(--shadow-glow);
 }
 
 .product-gallery {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 40px;
   margin-top: 40px;
 }
 
 .product-gallery-item {
-  text-align: center;
-  transition: transform 0.3s ease;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  transition: all 0.3s ease;
 }
 
 .product-gallery-item:hover {
-  transform: scale(1.02);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-glow);
 }
 
 .product-gallery img {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
   width: 100%;
-  height: auto;
-  border-radius: 24px;
-  background: var(--gray-50);
-  box-shadow: var(--shadow-sm);
-  margin-bottom: 16px;
+}
+
+.product-gallery p {
+  padding: 16px;
+  color: var(--color-text-secondary);
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {
   .product-slide {
-    width: 300px;
-    height: 380px;
-  }
-  .product-slideshow {
+    width: 320px;
     height: 420px;
+    padding: 32px;
   }
 }
 </style>
