@@ -33,9 +33,9 @@ const productsData = {
 }
 
 const slides = [
-    { id: 'composants', icon: '⌨️', title: 'Accessoires & Périphériques', subtitle: 'Claviers, Souris & Audio', image: '/assets/img/products/mechanical_keyboard.png' },
-    { id: 'robots', icon: '🖨️', title: 'Équipements de Bureau', subtitle: 'Imprimantes & Moniteurs', image: '/assets/img/products/epson_printer.png' },
-    { id: 'ordinateurs', icon: '💻', title: 'Ordinateurs Portables', subtitle: 'Performance & Design', image: '/assets/img/products/hp_laptop_open.png' }
+    { id: 'composants', title: 'Accessoires & Périphériques', subtitle: 'Claviers, Souris & Audio', image: '/assets/img/products/mechanical_keyboard.png' },
+    { id: 'robots', title: 'Équipements de Bureau', subtitle: 'Imprimantes & Moniteurs', image: '/assets/img/products/epson_printer.png' },
+    { id: 'ordinateurs', title: 'Ordinateurs Portables', subtitle: 'Performance & Design', image: '/assets/img/products/hp_laptop_open.png' }
 ]
 
 const currentSlide = ref(0)
@@ -557,11 +557,146 @@ onUnmounted(() => {
   font-size: 14px;
 }
 
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
+  .products {
+    padding: 60px 16px;
+  }
+
+  .products h2 {
+    font-size: clamp(32px, 8vw, 40px);
+    margin-bottom: 40px;
+  }
+
+  .product-slideshow {
+    height: auto;
+    min-height: 450px;
+  }
+
   .product-slide {
-    width: 320px;
-    height: 420px;
-    padding: 32px;
+    width: 90vw;
+    max-width: 340px;
+    height: auto;
+    min-height: 380px;
+    padding: 24px;
+  }
+
+  .product-slide h3 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .product-slide p {
+    font-size: 16px;
+  }
+
+  .slide-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+
+  .slideshow-controls {
+    gap: 16px;
+    padding: 10px 20px;
+    margin-top: 30px;
+  }
+
+  .control-btn, .pause-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .slideshow-dots {
+    gap: 8px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  /* Modal adjustments */
+  .modal-content-wrapper {
+    padding: 80px 16px 40px;
+  }
+
+  .product-hero-title {
+    font-size: clamp(28px, 7vw, 40px);
+    margin-bottom: 16px;
+  }
+
+  .product-hero-subtitle {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  .product-actions {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+
+  .apple-btn {
+    width: 100%;
+    padding: 14px 24px;
+    font-size: 15px;
+  }
+
+  .close-modal-btn {
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .product-gallery {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+
+  .product-gallery-item {
+    border-radius: var(--radius-md);
+  }
+
+  .product-gallery p {
+    padding: 12px;
+    font-size: 13px;
   }
 }
+
+/* Extra small mobile */
+@media (max-width: 480px) {
+  .products {
+    padding: 50px 12px;
+  }
+
+  .product-slideshow {
+    min-height: 400px;
+  }
+
+  .product-slide {
+    width: calc(100vw - 40px);
+    max-width: 320px;
+    min-height: 350px;
+    padding: 20px;
+  }
+
+  .product-slide h3 {
+    font-size: 20px;
+  }
+
+  .product-slide p {
+    font-size: 14px;
+  }
+
+  .slide-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+  }
+}
+
 </style>
