@@ -205,7 +205,7 @@ onUnmounted(() => {
           <p class="product-hero-subtitle">{{ selectedProduct.description }}</p>
           
           <div class="product-actions">
-            <a href="#contact" class="apple-btn apple-btn-primary" @click="closeModal">
+            <a href="https://wa.me/25772013010" target="_blank" rel="noopener noreferrer" class="apple-btn apple-btn-primary" @click="closeModal">
               Commander
             </a>
             <a href="#contact" class="apple-btn apple-btn-secondary" @click="closeModal">

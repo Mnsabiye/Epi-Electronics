@@ -8,7 +8,7 @@
         <div class="social-icons">
           <a href="https://wa.me/72013010" target="_blank"><img src="/assets/img/wtsp.png" alt="WhatsApp"></a>
           <a href="https://www.facebook.com/profile.php?id=100087368895547" target="_blank"><img src="/assets/img/fb1.png" alt="Facebook"></a>
-          <a href="https://www.instagram.com/epielectronics" target="_blank"><img src="/assets/img/ig.svg" alt="Instagram"></a>
+          <a href="https://www.instagram.com/epi_electronics?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><img src="/assets/img/ig.svg" alt="Instagram"></a>
         </div>
       </div>
       <div class="footer-section">
@@ -110,30 +110,31 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: var(--radius-md);
   transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
 }
 
 .social-icons a:hover {
-  background: var(--gradient-primary);
+  background: #ffffff;
   border-color: transparent;
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-glow);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
 }
 
 .social-icons a:hover img {
-  filter: brightness(0) invert(1);
+  filter: none;
 }
 
 .social-icons img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   transition: all 0.3s ease;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .footer-bottom {
