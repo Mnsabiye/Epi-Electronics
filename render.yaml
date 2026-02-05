@@ -2,7 +2,7 @@ services:
   - type: web
     name: epi-electronics
     env: static
-    buildCommand: npm run build
+    buildCommand: npm run build && cp public/contact.html dist/
     staticPublishPath: ./dist
     headers:
       - path: /*
