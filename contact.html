@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/logo.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formulaire de Commande - EpiElectronics</title>
+  <meta name="description" content="Passez votre commande avec livraison gratuite. Remplissez notre formulaire de commande simple et rapide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-bg: #ffffff;
+      --color-text: #1a1a1a;
+      --color-text-secondary: #666666;
+      --gradient-cta: linear-gradient(90deg, #6B57FF, #3B74EE);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #ffffff;
+      color: var(--color-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: #ffffff;
+      backdrop-filter: blur(10px);
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(107, 87, 255, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      background: var(--gradient-cta);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .back-link {
+      color: var(--color-text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .back-link:hover {
+      color: #6B57FF;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .content-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .content-header h1 {
+      font-size: 36px;
+      margin-bottom: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .content-header p {
+      font-size: 16px;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .form-wrapper {
+      background: #f8f8f8;
+      border: 1px solid rgba(107, 87, 255, 0.15);
+      border-radius: 16px;
+      padding: 40px 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-wrapper iframe {
+      width: 100%;
+      border: none;
+      max-width: 640px;
+      margin: 0 auto;
+      display: block;
+      height: 1200px;
+      /* Reduced height for better mobile experience while preserving form fields */
+    }
+
+    footer {
+      background: #ffffff;
+      border-top: 1px solid rgba(107, 87, 255, 0.1);
+      padding: 30px 20px;
+      text-align: center;
+      color: var(--color-text-secondary);
+      font-size: 14px;
+    }
+
+    footer p {
+      margin-bottom: 8px;
+    }
+
+    .footer-contact {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+
+    .footer-contact a {
+      color: #6B57FF;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .footer-contact a:hover {
+      color: #3B74EE;
+    }
+
+    @media (max-width: 768px) {
+      .content-header h1 {
+        font-size: 28px;
+      }
+
+      .form-wrapper {
+        padding: 20px 15px;
+      }
+
+      .form-wrapper iframe {
+        height: 1000px;
+        /* Further reduced for small screens */
+      }
+
+      header {
+        padding: 12px 15px;
+      }
+
+      .header-content {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      main {
+        padding: 20px 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <a href="index.html" class="logo">EpiElectronics</a>
+      <div style="display: flex; gap: 20px; align-items: center;">
+        <div style="font-size: 13px; color: var(--color-text-secondary);">
+          <i class="fas fa-phone" style="margin-right: 6px; color: #6B57FF;"></i>+33 1 23 45 67 89
+        </div>
+        <a href="index.html" class="back-link">
+          <i class="fas fa-arrow-left"></i>
+          Retour à l'accueil
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <div class="content-header">
+        <h1>Passez votre commande</h1>
+        <p>Livraison gratuite — Remplissez le formulaire ci-dessous pour passer votre commande avec livraison gratuite.</p>
+      </div>
+
+      <div class="form-wrapper">
+        <!-- Google Form embed -->
+        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSd3JMh9d3fBIHD2whMjTkqz0sRcuvfSZYeiWJfhGqb5R9YyIQ/viewform?embedded=true"
+                title="Formulaire de commande"
+                frameborder="0"
+                marginheight="0"
+                marginwidth="0"
+                loading="lazy">Loading…</iframe>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-contact">
+      <div>
+        <i class="fas fa-phone" style="color: #6B57FF; margin-right: 6px;"></i>
+        <a href="tel:+33123456789">+33 1 23 45 67 89</a>
+      </div>
+      <div>
+        <i class="fas fa-envelope" style="color: #6B57FF; margin-right: 6px;"></i>
+        <a href="mailto:contact@epi-electronics.example">contact@epi-electronics.example</a>
+      </div>
+      <div>
+        <i class="fas fa-map-marker-alt" style="color: #6B57FF; margin-right: 6px;"></i>
+        <span>12 Rue de l'Électronique, 75000 Paris</span>
+      </div>
+    </div>
+    <p>&copy; 2026 EpiElectronics. Tous droits réservés.</p>
+  </footer>
+</body>
+
+</html>
