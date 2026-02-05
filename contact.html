@@ -2,6 +2,15 @@
 <html lang="fr">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17933375098"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'AW-17933375098');
+  </script>
   <meta charset="UTF-8" />
   <link rel="icon" type="image/png" href="/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -73,6 +82,42 @@
     }
 
     .back-link:hover {
+      color: #6B57FF;
+    }
+
+    .header-content {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 24px;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      background: var(--gradient-cta);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
       color: #6B57FF;
     }
 
@@ -157,6 +202,92 @@
       color: #3B74EE;
     }
 
+    .footer-gradient-line {
+      height: 4px;
+      background: var(--gradient-cta);
+      margin-bottom: 30px;
+    }
+
+    .footer-sections {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+      max-width: 1280px;
+      margin: 0 auto 40px;
+      padding: 0 24px;
+    }
+
+    .footer-section h3 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .footer-section p {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+      line-height: 1.6;
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-section ul li {
+      font-size: 14px;
+      color: var(--color-text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .footer-section a {
+      color: #6B57FF;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: #3B74EE;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .social-icons a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      background: #ffffff;
+      border: 2px solid #6B57FF;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      color: #6B57FF;
+      font-size: 20px;
+    }
+
+    .social-icons a:hover {
+      background: #6B57FF;
+      border-color: #6B57FF;
+      color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(107, 87, 255, 0.3);
+    }
+
+    .social-icons img {
+      width: 20px;
+      height: 20px;
+    }
+
     @media (max-width: 768px) {
       .content-header h1 {
         font-size: 28px;
@@ -190,16 +321,17 @@
 <body>
   <header>
     <div class="header-content">
-      <a href="index.html" class="logo">EpiElectronics</a>
-      <div style="display: flex; gap: 20px; align-items: center;">
-        <div style="font-size: 13px; color: var(--color-text-secondary);">
-          <i class="fas fa-phone" style="margin-right: 6px; color: #6B57FF;"></i>+33 1 23 45 67 89
-        </div>
-        <a href="index.html" class="back-link">
-          <i class="fas fa-arrow-left"></i>
-          Retour à l'accueil
-        </a>
-      </div>
+      <a href="index.html" class="logo">EPI Electronics</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="index.html#products">Produits</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#testimonials">Témoignages</a></li>
+      </ul>
+      <a href="index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i>
+        Retour
+      </a>
     </div>
   </header>
 
@@ -223,21 +355,42 @@
   </main>
 
   <footer>
-    <div class="footer-contact">
-      <div>
-        <i class="fas fa-phone" style="color: #6B57FF; margin-right: 6px;"></i>
-        <a href="tel:+33123456789">+33 1 23 45 67 89</a>
+    <div class="footer-gradient-line"></div>
+    <div class="footer-sections">
+      <div class="footer-section">
+        <h3>EPI Electronics</h3>
+        <p>Votre partenaire technologique de confiance</p>
+        <div class="social-icons">
+          <a href="https://wa.me/72013010" target="_blank" title="WhatsApp"><i class="fas fa-whatsapp"></i></a>
+          <a href="https://www.facebook.com/profile.php?id=100087368895547" target="_blank" title="Facebook"><i class="fas fa-facebook"></i></a>
+          <a href="https://www.instagram.com/epi_electronics" target="_blank" title="Instagram"><i class="fas fa-instagram"></i></a>
+        </div>
       </div>
-      <div>
-        <i class="fas fa-envelope" style="color: #6B57FF; margin-right: 6px;"></i>
-        <a href="mailto:contact@epi-electronics.example">contact@epi-electronics.example</a>
+      <div class="footer-section">
+        <h3>Services</h3>
+        <ul>
+          <li>Reparation d'ordinateurs</li>
+          <li>Services Electroniques</li>
+          <li>Recuperations des donnees</li>
+          <li>Diagnostiques</li>
+        </ul>
       </div>
-      <div>
-        <i class="fas fa-map-marker-alt" style="color: #6B57FF; margin-right: 6px;"></i>
-        <span>12 Rue de l'Électronique, 75000 Paris</span>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p><a href="tel:+257720130010">(+257) 72 01 30 10</a></p>
+        <p>Email: <a href="mailto:contact@epielectronics.store">contact@epielectronics.store</a></p>
+        <p>Adresse : Bujumbura, Burundi</p>
+      </div>
+      <div class="footer-section">
+        <h3>Horaires</h3>
+        <p>Lun - Ven: 8h - 19h</p>
+        <p>Samedi: 10h - 18h</p>
+        <p>Dimanche: 12h - 17h</p>
       </div>
     </div>
-    <p>&copy; 2026 EpiElectronics. Tous droits réservés.</p>
+    <div style="text-align: center; padding-top: 24px; border-top: 1px solid #e0e0e0; max-width: 1280px; margin: 0 auto; padding-left: 24px; padding-right: 24px;">
+      <p style="font-size: 14px; color: var(--color-text-secondary);">© 2026 EPI Electronics. Tous droits réservés.</p>
+    </div>
   </footer>
 </body>
 
