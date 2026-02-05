@@ -78,15 +78,12 @@ onUnmounted(() => {
           <span>Leader en solutions électroniques</span>
         </div>
         <h1>Votre Portail vers<br><span class="highlight">Epi Electronics</span></h1>
-        <p>Découvrez nos solutions électroniques modernes et innovantes pour tous vos besoins technologiques. Nous transformons vos idées en réalité numérique.</p>
-        
+        <p>Passez votre commande avec livraison gratuite</p>
+
         <div class="hero-buttons">
-          <a href="#products" class="btn btn-primary">
-            Découvrir Nos Produits
+          <a href="contact.html" class="btn btn-primary">
+            commandez-maintenant
             <i class="fas fa-arrow-right" style="margin-left: 8px;"></i>
-          </a>
-          <a href="#services" class="btn btn-secondary">
-            Nos Services
           </a>
         </div>
         
