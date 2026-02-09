@@ -7,7 +7,7 @@ const ProductDetail = () => import('../pages/ProductDetail.vue')
 const AllProducts = () => import('../pages/AllProducts.vue')
 const QuoteRequest = () => import('../pages/QuoteRequest.vue')
 const NotFound = () => import('../pages/NotFound.vue')
-const Consulting = () => import('../pages/services/Consulting.vue')
+const Web = () => import('../pages/services/Web.vue')
 const Maintenance = () => import('../pages/services/Maintenance.vue')
 const Distribution = () => import('../pages/services/Distribution.vue')
 const ServicesPage = () => import('../pages/ServicesPage.vue')
@@ -62,11 +62,11 @@ const routes = [
         }
     },
     {
-        path: '/services/conseil',
-        name: 'Consulting',
-        component: Consulting,
+        path: '/services/web',
+        name: 'Web',
+        component: Web,
         meta: {
-            title: 'Conseil & Stratégie IT - Bujumbura, Burundi'
+            title: 'Sites Web & IA - Burundi'
         }
     },
     {

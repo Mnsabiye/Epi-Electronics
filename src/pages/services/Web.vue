@@ -3,8 +3,8 @@
     <div class="service-hero">
       <div class="hero-bg"></div>
       <div class="hero-content">
-        <h1>Conseil & Stratégie</h1>
-        <p>Expertise technique et vision stratégique pour votre transformation numérique</p>
+        <h1>Sites Web & IA</h1>
+        <p>Alliez design moderne et puissance de l'intelligence artificielle pour une présence en ligne performante</p>
       </div>
     </div>
 
@@ -12,22 +12,27 @@
       <div class="content-grid">
         <div class="main-text">
           <p class="lead">
-            Dans un environnement technologique en constante évolution, faire les bons choix stratégiques est crucial pour la compétitivité de votre entreprise. Chez EpiElectronics, nous ne nous contentons pas de fournir du matériel ; nous vous accompagnons dans la définition et la mise en œuvre de votre stratégie IT.
+            Votre site web est la vitrine de votre entreprise. À l'ère du numérique, il ne suffit plus d'être présent ; il faut se démarquer. Chez EpiElectronics, nous concevons des sites web sur-mesure, esthétiques et fonctionnels, propulsés par l'intelligence artificielle et boostés par des stratégies de marketing digital performantes.
           </p>
           
-          <h2>Audit et Diagnostic</h2>
+          <h2>Design Web Moderne et Réactif</h2>
           <p>
-            Notre approche commence par une compréhension approfondie de votre infrastructure existante et de vos objectifs d'affaires. Nos experts réalisent des audits complets de votre parc informatique, de vos réseaux et de vos systèmes de sécurité. Nous identifions les goulots d'étranglement, les vulnérabilités potentielles et les opportunités d'optimisation pour garantir que votre technologie soutient efficacement votre croissance.
+            Nous créons des expériences utilisateurs fluides et captivantes. Que ce soit pour un site vitrine, une boutique en ligne ou une application web complexe, nos designs sont entièrement adaptatifs (responsive), garantissant une consultation optimale sur tous les appareils (ordinateurs, tablettes, smartphones). Nous mettons l'accent sur l'ergonomie (UI/UX) pour maximiser l'engagement de vos visiteurs.
           </p>
 
-          <h2>Stratégie de Transformation Numérique</h2>
+          <h2>Intégration de l'Intelligence Artificielle</h2>
           <p>
-            Nous élaborons des feuilles de route technologiques alignées sur vos ambitions. Que vous soyez une startup en pleine expansion ou une grande entreprise cherchant à moderniser ses opérations, nous vous guidons dans le choix des solutions logicielles et matérielles les plus adaptées. Nous vous aidons à anticiper les besoins futurs, à scalabilité votre infrastructure et à intégrer les nouvelles technologies de manière fluide et sécurisée.
+            Prenez une longueur d'avance en intégrant l'IA à votre site. Nous proposons des solutions innovantes telles que des chatbots intelligents pour le service client 24/7, des moteurs de recommandation personnalisés, et l'automatisation de tâches répétitives. L'IA permet d'analyser le comportement de vos utilisateurs pour optimiser continuellement votre plateforme et augmenter vos taux de conversion.
           </p>
 
-          <h2>Sécurité et Conformité</h2>
+          <h2>Performance et Référencement (SEO)</h2>
           <p>
-            La protection de vos données est notre priorité. Nous vous conseillons sur les meilleures pratiques de cybersécurité, la mise en place de politiques de sauvegarde robustes et la conformité aux normes internationales. Notre objectif est de minimiser les risques tout en maximisant la productivité de vos équipes.
+            Un beau site ne sert à rien s'il n'est pas vu. Nous optimisons la structure technique et le contenu de votre site pour un référencement naturel (SEO) optimal sur les moteurs de recherche comme Google. De plus, nous assurons des temps de chargement ultra-rapides, critère essentiel pour l'expérience utilisateur et le classement dans les résultats de recherche.
+          </p>
+
+          <h2>Publicité en Ligne (Google Ads & Meta Ads)</h2>
+          <p>
+            Accélérez votre croissance avec des campagnes publicitaires ciblées. Nous gérons vos campagnes marketing sur Google Ads (Search, Display) et Meta Ads (Facebook, Instagram) pour attirer du trafic qualifié dès le lancement de votre site. Notre expertise nous permet d'optimiser votre budget pour obtenir le meilleur retour sur investissement (ROI) possible.
           </p>
         </div>
 
@@ -35,8 +40,8 @@
           <div class="cta-card">
             <h3>Besoin d'un accompagnement ?</h3>
             <p>Discutons de vos projets et définissons ensemble la meilleure stratégie pour votre entreprise.</p>
-            <router-link :to="{ name: 'QuoteRequest', query: { type: 'service', service: 'Conseil & Stratégie' }}" class="btn btn-primary">
-              Demander une Consultation
+            <router-link :to="{ name: 'QuoteRequest', query: { type: 'service', service: 'Sites Web & IA' }}" class="btn btn-primary">
+              Demander un Devis Web
             </router-link>
           </div>
         </div>
@@ -69,7 +74,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('/assets/img/service-consulting.png');
+  background-image: url('/assets/img/african-dev-standing.png');
   background-size: cover;
   background-position: center;
   filter: brightness(0.4);

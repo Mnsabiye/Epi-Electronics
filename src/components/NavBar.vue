@@ -65,7 +65,7 @@ onUnmounted(() => {
           <ul class="dropdown-menu">
             <li><router-link to="/services" @click="closeMenu">Tous les Services</router-link></li>
             <li class="dropdown-divider"></li>
-            <li><router-link to="/services/conseil" @click="closeMenu">Conseil & Stratégie</router-link></li>
+            <li><router-link to="/services/web" @click="closeMenu">Sites Web & IA</router-link></li>
             <li><router-link to="/services/maintenance" @click="closeMenu">Maintenance Proactive</router-link></li>
             <li><router-link to="/services/distribution" @click="closeMenu">Vente & Distribution</router-link></li>
           </ul>

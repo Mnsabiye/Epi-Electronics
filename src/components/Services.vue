@@ -18,14 +18,14 @@ const navigateToService = (path) => {
       </div>
 
       <div class="service-container">
-        <div class="service-card consulting" @click="navigateToService('/services/conseil')">
+        <div class="service-card web" @click="navigateToService('/services/web')">
           <div class="card-overlay"></div>
           <div class="card-content">
             <div class="card-icon">
-              <i class="fas fa-chart-line"></i>
+              <i class="fas fa-laptop-code"></i>
             </div>
-            <h3>Conseil & Stratégie</h3>
-            <p>Audit de vos besoins et accompagnement sur-mesure pour optimiser votre parc informatique.</p>
+            <h3>Sites Web & IA</h3>
+            <p>Création de sites web, intégration IA et marketing digital (Google/Meta Ads).</p>
           </div>
         </div>
 
@@ -120,7 +120,7 @@ h2 {
   box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
-.service-card.consulting { background-image: url('/assets/img/service-consulting.png'); }
+.service-card.web { background-image: url('/assets/img/african-dev-standing.png'); }
 .service-card.maintenance { background-image: url('/assets/img/service-maintenance.png'); }
 .service-card.distribution { background-image: url('/assets/img/service-distribution.png'); }
 

@@ -23,7 +23,7 @@
       <div class="footer-section">
         <h3>Services</h3>
         <ul>
-          <li><router-link to="/services/conseil">Conseil & Stratégie</router-link></li>
+          <li><router-link to="/services/web">Sites Web & IA</router-link></li>
           <li><router-link to="/services/maintenance">Maintenance Proactive</router-link></li>
           <li><router-link to="/services/distribution">Vente & Distribution</router-link></li>
           <li><router-link to="/services">Tous nos services</router-link></li>
