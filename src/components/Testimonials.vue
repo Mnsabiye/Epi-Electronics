@@ -25,11 +25,11 @@ const initCanvas = () => {
   
   const drawGrid = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.strokeStyle = 'rgba(59, 116, 238, 0.06)'
+    ctx.strokeStyle = 'rgba(30, 58, 138, 0.05)'
     ctx.lineWidth = 1
     for (let y = 0; y <= canvas.height; y += 80) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke() }
     for (let x = 0; x <= canvas.width; x += 80) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke() }
-    ctx.fillStyle = 'rgba(107, 87, 255, 0.15)'
+    ctx.fillStyle = 'rgba(30, 58, 138, 0.1)'
     for (let x = 0; x <= canvas.width; x += 80) { for (let y = 0; y <= canvas.height; y += 80) { ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill() } }
     animationFrameId = requestAnimationFrame(drawGrid)
   }

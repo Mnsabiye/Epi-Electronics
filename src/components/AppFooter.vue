@@ -6,18 +6,27 @@
         <h3>EPI Electronics</h3>
         <p class="footer-tagline">Votre partenaire technologique de confiance</p>
         <div class="social-icons">
-          <a href="https://wa.me/72013010" target="_blank"><img src="/assets/img/wtsp.png" alt="WhatsApp"></a>
+          <a href="https://wa.me/25767405262" target="_blank"><img src="/assets/img/wtsp.png" alt="WhatsApp"></a>
           <a href="https://www.facebook.com/profile.php?id=100087368895547" target="_blank"><img src="/assets/img/fb1.png" alt="Facebook"></a>
           <a href="https://www.instagram.com/epi_electronics?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><img src="/assets/img/ig.svg" alt="Instagram"></a>
         </div>
       </div>
       <div class="footer-section">
+        <h3>Produits</h3>
+        <ul>
+          <li><router-link to="/categorie/ordinateurs-portables">Ordinateurs Portables</router-link></li>
+          <li><router-link to="/categorie/imprimantes">Imprimantes & Scanners</router-link></li>
+          <li><router-link to="/categorie/accessoires-peripheriques">Accessoires & Périphériques</router-link></li>
+          <li><router-link to="/produits">Voir tout le catalogue</router-link></li>
+        </ul>
+      </div>
+      <div class="footer-section">
         <h3>Services</h3>
         <ul>
-          <li>Reparation d'ordinateurs</li>
-          <li>Services Electroniques</li>
-          <li>Recuperations des donnees</li>
-          <li>Diagnostiques</li>
+          <li><router-link to="/services/conseil">Conseil & Stratégie</router-link></li>
+          <li><router-link to="/services/maintenance">Maintenance Proactive</router-link></li>
+          <li><router-link to="/services/distribution">Vente & Distribution</router-link></li>
+          <li><router-link to="/services">Tous nos services</router-link></li>
         </ul>
       </div>
       <div class="footer-section">

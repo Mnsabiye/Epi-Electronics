@@ -26,11 +26,11 @@ const initCanvas = () => {
   
   const drawGrid = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.strokeStyle = 'rgba(59, 116, 238, 0.06)'
+    ctx.strokeStyle = 'rgba(30, 58, 138, 0.05)'
     ctx.lineWidth = 1
     for (let y = 0; y <= canvas.height; y += 80) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke() }
     for (let x = 0; x <= canvas.width; x += 80) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke() }
-    ctx.fillStyle = 'rgba(107, 87, 255, 0.15)'
+    ctx.fillStyle = 'rgba(30, 58, 138, 0.1)'
     for (let x = 0; x <= canvas.width; x += 80) { for (let y = 0; y <= canvas.height; y += 80) { ctx.beginPath(); ctx.arc(x, y, 1.5, 0, Math.PI * 2); ctx.fill() } }
     animationFrameId = requestAnimationFrame(drawGrid)
   }
@@ -74,6 +74,6 @@ input[type="email"] { flex: 1; padding: 18px 28px; border: none; outline: none; 
 input[type="email"]::placeholder { color: var(--color-text-muted); }
 .newsletter-btn { padding: 18px 32px; background: var(--gradient-cta); border: none; color: white; font-family: var(--font-family); font-size: 15px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: all 0.3s ease; white-space: nowrap; }
 .newsletter-btn:hover { transform: scale(1.02); box-shadow: var(--shadow-glow-strong); }
-.newsletter-success { padding: 20px; background: rgba(0, 224, 214, 0.15); border-radius: var(--radius-md); color: #00E0D6; font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 12px; justify-content: center; border: 1px solid rgba(0, 224, 214, 0.3); }
+.newsletter-success { padding: 20px; background: rgba(34, 197, 94, 0.1); border-radius: var(--radius-md); color: #16a34a; font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 12px; justify-content: center; border: 1px solid rgba(34, 197, 94, 0.3); }
 @media (max-width: 768px) { .form-group { flex-direction: column; border-radius: var(--radius-lg); } input[type="email"] { text-align: center; border-bottom: 1px solid var(--color-border); } .newsletter-btn { justify-content: center; border-radius: 0 0 var(--radius-lg) var(--radius-lg); } }
 </style>
