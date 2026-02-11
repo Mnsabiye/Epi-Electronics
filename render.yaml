@@ -2,7 +2,7 @@ services:
   - type: web
     name: epi-electronics
     env: static
-    buildCommand: npm run build && cp public/_redirects dist/
+    buildCommand: npm run build
     staticPublishPath: ./dist
     headers:
       - path: /*

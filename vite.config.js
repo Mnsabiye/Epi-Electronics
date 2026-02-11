@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [vue()],
+  publicDir: 'public', // Ensures all files from public/ are copied to dist/
   build: {
     // Enable minification with terser for smaller bundles
     minify: 'terser',
