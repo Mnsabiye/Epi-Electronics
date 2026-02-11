@@ -70,7 +70,7 @@ onUnmounted(() => {
             <li><router-link to="/services/distribution" @click="closeMenu">Vente & Distribution</router-link></li>
           </ul>
         </li>
-        <li><router-link to="/#contact" @click="closeMenu">Contact</router-link></li>
+        <li><router-link to="/contact" @click="closeMenu">Contact</router-link></li>
       </ul>
 
       <div class="nav-controls">

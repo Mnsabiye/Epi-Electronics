@@ -5,9 +5,9 @@
         <h2>Contactez-nous</h2>
         <p>Passez votre commande avec livraison gratuite — remplissez le formulaire ci-contre et nous vous répondrons rapidement.</p>
         <ul class="contact-list">
-          <li><strong>Téléphone :</strong> +33 1 23 45 67 89</li>
-          <li><strong>Email :</strong> contact@epi-electronics.example</li>
-          <li><strong>Adresse :</strong> 12 Rue de l'Électronique, 75000 Paris, France</li>
+          <li><strong>Téléphone :</strong> +257 72 01 30 10</li>
+          <li><strong>Email :</strong> contact@epi-electronics.store</li>
+          <li><strong>Adresse :</strong><a href="https://maps.app.goo.gl/jcVT9Qf5ZZKwjJ9y7"> Bujumbura av. de la RDC, Maison du Tresor</a></li>
         </ul>
       </div>
 

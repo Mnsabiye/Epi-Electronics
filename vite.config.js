@@ -33,6 +33,11 @@ export default defineConfig({
     // CSS code splitting
     cssCodeSplit: true
   },
+  // Preview server configuration for SPA routing
+  preview: {
+    port: 4173,
+    strictPort: false,
+  },
   // Optimize dependencies
   optimizeDeps: {
     include: ['vue']

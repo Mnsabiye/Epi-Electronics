@@ -33,7 +33,7 @@
         <h3>Contact</h3>
         <p>Telephone: (+257) 72 01 30 10</p>
         <p>Email: <a href="mailto:contact@epielectronics.store">contact@epielectronics.store</a></p>
-        <p>Adresse : Bujumbura, Burundi</p>
+        <p>Adresse : <a href="https://maps.app.goo.gl/jcVT9Qf5ZZKwjJ9y7"> Bujumbura av. de la RDC, Maison du Tresor</a></p>
       </div>
       <div class="footer-section">
         <h3>Horaires</h3>

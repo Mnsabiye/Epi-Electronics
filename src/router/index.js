@@ -78,6 +78,14 @@ const routes = [
         }
     },
     {
+        path: '/contact',
+        name: 'Contact',
+        component: () => import('../pages/Contact.vue'),
+        meta: {
+            title: 'Contactez-nous - Formulaire de Commande | EpiElectronics Burundi'
+        }
+    },
+    {
         path: '/services/distribution',
         name: 'Distribution',
         component: Distribution,
