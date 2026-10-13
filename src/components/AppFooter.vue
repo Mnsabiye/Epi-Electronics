@@ -1,163 +1,136 @@
+<script setup>
+</script>
+
 <template>
-  <footer>
-    <div class="footer-gradient-line"></div>
-    <div class="footer-container">
-      <div class="footer-section">
-        <h3>EPI Electronics</h3>
-        <p class="footer-tagline">Votre partenaire technologique de confiance</p>
-        <div class="social-icons">
-          <a href="https://wa.me/25767405262" target="_blank"><img src="/assets/img/wtsp.png" alt="WhatsApp"></a>
-          <a href="https://www.facebook.com/profile.php?id=100087368895547" target="_blank"><img src="/assets/img/fb1.png" alt="Facebook"></a>
-          <a href="https://www.instagram.com/epi_electronics?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank"><img src="/assets/img/ig.svg" alt="Instagram"></a>
+  <footer class="w-full bg-surface-container-low text-on-surface-variant pt-space-xl pb-space-lg shadow-[0_-1px_4px_rgba(0,0,0,0.02)] border-t border-surface-container-highest/40 mt-auto">
+    <div class="max-w-[1440px] mx-auto px-gutter-mobile md:px-gutter">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-lg mb-space-xl">
+        <!-- Brand Column -->
+        <div class="lg:col-span-1">
+          <router-link to="/" class="inline-block mb-space-md group">
+            <img
+              src="/assets/img/epi-logo-full.png"
+              alt="EPI Electronics - Computers devices and Equipments"
+              class="h-16 w-auto object-contain transition-transform group-hover:scale-[1.02]"
+            />
+          </router-link>
+          <p class="font-body-sm text-body-sm mb-space-md text-on-surface-variant">
+            Leader de la distribution informatique, équipements télécoms, matériel réseau d'entreprise et solutions numériques en République du Burundi.
+          </p>
+          <div class="flex items-center gap-space-xs text-primary font-semibold">
+            <span class="material-symbols-outlined text-sm">verified</span>
+            <span class="font-label-sm text-label-sm">Fournisseur Agréé Entreprises &amp; ONG</span>
+          </div>
+        </div>
+
+        <!-- Partenaires Certifiés -->
+        <div>
+          <h4 class="font-title-md text-title-md text-on-surface mb-space-md font-bold">Partenaires Certifiés</h4>
+          <ul class="space-y-space-xs font-body-sm text-body-sm">
+            <li>
+              <router-link to="/produits?brand=HP" class="text-on-surface-variant hover:text-primary transition-colors">
+                HP Inc. &amp; Hewlett Packard Ent.
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/produits?brand=Dell" class="text-on-surface-variant hover:text-primary transition-colors">
+                Dell Technologies Direct
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/produits?brand=Lenovo" class="text-on-surface-variant hover:text-primary transition-colors">
+                Lenovo Authorized Partner
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/produits?brand=Epson" class="text-on-surface-variant hover:text-primary transition-colors">
+                Epson Pro Print Solutions
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/produits?brand=Cisco" class="text-on-surface-variant hover:text-primary transition-colors">
+                Cisco Networking &amp; Meraki
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/produits?brand=APC" class="text-on-surface-variant hover:text-primary transition-colors">
+                APC by Schneider Electric
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Navigation Rapide -->
+        <div>
+          <h4 class="font-title-md text-title-md text-on-surface mb-space-md font-bold">Navigation Rapide</h4>
+          <ul class="space-y-space-xs font-body-sm text-body-sm">
+            <li>
+              <router-link to="/produits" class="hover:text-primary transition-colors">
+                Catalogue Matériel
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/demandez-un-devis" class="hover:text-primary transition-colors">
+                Demande de Devis
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/services" class="hover:text-primary transition-colors">
+                Maintenance &amp; Infogérance
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/services/distribution" class="hover:text-primary transition-colors">
+                Distribution &amp; Équipement
+              </router-link>
+            </li>
+            <li>
+              <router-link to="/services/maintenance" class="hover:text-primary transition-colors">
+                Service Après-Vente (SAV)
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Siège & Showroom -->
+        <div>
+          <h4 class="font-title-md text-title-md text-on-surface mb-space-md font-bold">Siège &amp; Showroom</h4>
+          <div class="space-y-space-sm font-body-sm text-body-sm">
+            <div>
+              <span class="font-label-sm text-label-sm text-primary uppercase block font-bold">Bujumbura (Siège)</span>
+              <p class="text-on-surface-variant">Boulevard de l'Uprona, Rohero I</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Heures & Assistance -->
+        <div>
+          <h4 class="font-title-md text-title-md text-on-surface mb-space-md font-bold">Heures &amp; Assistance</h4>
+          <div class="space-y-space-xs font-body-sm text-body-sm">
+            <p class="text-on-surface-variant">Lun - Ven: 08h00 - 18h00 (Sans interruption)</p>
+            <p class="text-on-surface-variant">Samedi: 08h30 - 13h30</p>
+            <p class="font-label-md text-label-md text-primary mt-space-sm font-bold">
+              Service Client: <a href="tel:+25767405262" class="hover:underline">+257 67 40 52 62</a>
+            </p>
+            <p class="text-on-surface-variant">
+              Email: <a href="mailto:commercial@epielectronics.bi" class="hover:text-primary">commercial@epielectronics.bi</a>
+            </p>
+            <div class="mt-space-md pt-space-xs">
+              <span class="inline-block px-space-sm py-1 bg-surface-container rounded font-label-sm text-label-sm text-primary font-semibold">
+                Livraison Provinciale Sécurisée
+              </span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="footer-section">
-        <h3>Produits</h3>
-        <ul>
-          <li><router-link to="/categorie/ordinateurs-portables">Ordinateurs Portables</router-link></li>
-          <li><router-link to="/categorie/imprimantes">Imprimantes & Scanners</router-link></li>
-          <li><router-link to="/categorie/accessoires-peripheriques">Accessoires & Périphériques</router-link></li>
-          <li><router-link to="/produits">Voir tout le catalogue</router-link></li>
-        </ul>
+
+      <!-- Bottom Legal & OBR Bar -->
+      <div class="pt-space-md border-t border-surface-container-highest/60 flex flex-col md:flex-row items-center justify-between gap-space-sm font-label-sm text-label-sm">
+        <p>© {{ new Date().getFullYear() }} EPI Electronics Burundi. Tous droits réservés. Registre de Commerce Bujumbura.</p>
+        <p class="text-on-surface-variant">
+          Tarifs affichés en BIF (Francs Burundais) avec options HTVA et TTC conformes OBR.
+        </p>
       </div>
-      <div class="footer-section">
-        <h3>Services</h3>
-        <ul>
-          <li><router-link to="/services/web">Sites Web & IA</router-link></li>
-          <li><router-link to="/services/maintenance">Maintenance Proactive</router-link></li>
-          <li><router-link to="/services/distribution">Vente & Distribution</router-link></li>
-          <li><router-link to="/services">Tous nos services</router-link></li>
-        </ul>
-      </div>
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <p>Telephone: (+257) 72 01 30 10</p>
-        <p>Email: <a href="mailto:contact@epielectronics.store">contact@epielectronics.store</a></p>
-        <p>Adresse : <a href="https://maps.app.goo.gl/jcVT9Qf5ZZKwjJ9y7"> Bujumbura av. de la RDC, Maison du Tresor</a></p>
-      </div>
-      <div class="footer-section">
-        <h3>Horaires</h3>
-        <p>Lun - Ven: 8h - 19h</p>
-        <p>Samedi: 10h - 18h</p>
-        <p>Dimanche: 12h - 17h</p>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2026 EPI Electronics. Tous droits réservés.</p>
     </div>
   </footer>
 </template>
-
-<style scoped>
-footer {
-  background: var(--color-background-elevated);
-  padding: 0 24px 40px;
-  position: relative;
-}
-
-.footer-gradient-line {
-  height: 4px;
-  background: var(--gradient-cta);
-  margin-bottom: 80px;
-}
-
-.footer-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 48px;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
-.footer-section h3 {
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--color-text);
-  margin-bottom: 24px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.footer-tagline {
-  font-size: 14px;
-  color: var(--color-text-muted);
-  margin-bottom: 24px;
-}
-
-.footer-section ul {
-  list-style: none;
-}
-
-.footer-section ul li {
-  margin-bottom: 12px;
-}
-
-.footer-section ul li,
-.footer-section p {
-  font-size: 15px;
-  color: var(--color-text-secondary);
-  line-height: 1.6;
-}
-
-.footer-section a {
-  color: var(--color-text-secondary);
-  transition: all 0.2s ease;
-  text-decoration: none;
-}
-
-.footer-section a:hover {
-  color: var(--color-primary-light);
-}
-
-/* Social Icons */
-.social-icons {
-  display: flex;
-  gap: 12px;
-}
-
-.social-icons a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-md);
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.15);
-}
-
-.social-icons a:hover {
-  background: #ffffff;
-  border-color: transparent;
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.25);
-}
-
-.social-icons a:hover img {
-  filter: none;
-}
-
-.social-icons img {
-  width: 24px;
-  height: 24px;
-  transition: all 0.3s ease;
-  opacity: 1;
-}
-
-.footer-bottom {
-  margin-top: 60px;
-  padding-top: 24px;
-  border-top: 1px solid var(--color-border);
-  text-align: center;
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.footer-bottom p {
-  font-size: 14px;
-  color: var(--color-text-muted);
-}
-</style>

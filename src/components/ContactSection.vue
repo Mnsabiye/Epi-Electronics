@@ -1,204 +1,150 @@
+<script setup>
+import { ref } from 'vue'
+
+const formName = ref('')
+const formPhone = ref('')
+const formCategory = ref('Laptops & Postes')
+const formDetails = ref('')
+const submitted = ref(false)
+
+function submitDevis() {
+  if (!formName.value.trim() || !formPhone.value.trim()) return
+  submitted.value = true
+  const msg = `Bonjour EPI Electronics,\n*Organisation:* ${formName.value}\n*Contact:* ${formPhone.value}\n*Catégorie:* ${formCategory.value}\n*Détails:* ${formDetails.value || 'Demande de cotation rapide'}`
+  window.open(`https://wa.me/25767405262?text=${encodeURIComponent(msg)}`, '_blank', 'noopener')
+}
+</script>
+
 <template>
-  <section class="contact-section" id="contact">
-    <div class="container">
-      <div class="contact-wrapper">
-        <div class="contact-content">
-          <span class="badg">Besoin d'aide ?</span>
-          <h2>Prêt à équiper votre entreprise ?</h2>
-          <p>Nos experts sont à votre disposition pour analyser vos besoins et vous proposer les meilleures solutions matérielles et logicielles. Devis gratuit sous 24h.</p>
-          
-          <div class="contact-actions">
-            <router-link to="/demandez-un-devis" class="btn btn-primary">
-              Demander un Devis <i class="fas fa-arrow-right"></i>
-            </router-link>
-            <a href="https://wa.me/25767405262" target="_blank" class="btn btn-secondary">
-              <i class="fab fa-whatsapp"></i> Discuter sur WhatsApp
-            </a>
+  <!-- SECTION FORMULAIRE RAPIDE DEVIS EXPRESS -->
+  <section id="devis-section" class="py-space-xl">
+    <div class="max-w-[1440px] mx-auto px-gutter-mobile md:px-gutter">
+      <div class="bg-primary text-on-primary rounded-3xl p-space-lg md:p-space-xl shadow-xl">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+          <!-- Left Pitch Column -->
+          <div class="lg:col-span-5">
+            <span class="inline-block bg-primary-container text-on-primary-container font-label-sm text-xs uppercase px-3 py-1 rounded-full mb-space-sm font-semibold tracking-wider">
+              Service Commercial
+            </span>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-space-sm tracking-tight text-white">
+              Cotation sous 24h conforme OBR
+            </h2>
+            <p class="font-body-md text-primary-fixed mb-space-lg font-light text-sm">
+              Nos conseillers établissent votre devis certifié avec conditions de paiement, exonération éventuelle et délais de livraison exacts.
+            </p>
+            <div class="space-y-2.5 text-xs text-primary-fixed">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-primary-fixed-dim">call</span>
+                <span>
+                  Ligne directe: <strong class="text-white">+257 67 40 52 62</strong>
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-primary-fixed-dim">mail</span>
+                <span>
+                  Email: <strong class="text-white">commercial@epielectronics.bi</strong>
+                </span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-primary-fixed-dim">location_on</span>
+                <span>Rohero I, Boulevard de l'Uprona, Bujumbura</span>
+              </div>
+            </div>
+
+            <div class="mt-space-lg pt-space-md border-t border-white/15">
+              <router-link
+                to="/demandez-un-devis"
+                class="inline-flex items-center gap-2 text-xs font-label-md text-white hover:text-primary-fixed underline underline-offset-4"
+              >
+                <span class="material-symbols-outlined text-base">calculate</span>
+                <span>Utiliser le Configurateur Multi-Postes avec Calcul BIF en direct</span>
+              </router-link>
+            </div>
           </div>
 
-          <div class="features-grid">
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Réponse rapide</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Conseils d'experts</span>
-            </div>
-            <div class="feature-item">
-              <i class="fas fa-check-circle"></i>
-              <span>Garantie incluse</span>
-            </div>
+          <!-- Right Form Card -->
+          <div class="lg:col-span-7 bg-surface-container-lowest text-on-surface p-space-md md:p-space-lg rounded-2xl shadow-md">
+            <h3 class="font-title-md text-title-md font-bold mb-1">Demande Rapide de Prix</h3>
+            <p class="font-body-sm text-xs text-on-surface-variant mb-space-md">
+              Réponse prompte avec bordereau des prix unitaires en BIF.
+            </p>
+            <form class="space-y-3" @submit.prevent="submitDevis">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block font-label-sm text-xs text-on-surface-variant mb-1" for="devis-name">
+                    Nom &amp; Entreprise *
+                  </label>
+                  <input
+                    id="devis-name"
+                    v-model="formName"
+                    class="w-full px-3 py-2.5 bg-surface-container-low rounded-xl text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-highest/40"
+                    placeholder="Ex: Banque, ONG, Société"
+                    required
+                    type="text"
+                  />
+                </div>
+                <div>
+                  <label class="block font-label-sm text-xs text-on-surface-variant mb-1" for="devis-phone">
+                    Numéro de contact *
+                  </label>
+                  <input
+                    id="devis-phone"
+                    v-model="formPhone"
+                    class="w-full px-3 py-2.5 bg-surface-container-low rounded-xl text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-highest/40"
+                    placeholder="+257 67..."
+                    required
+                    type="tel"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="block font-label-sm text-xs text-on-surface-variant mb-1" for="devis-cat">
+                  Catégorie de besoin
+                </label>
+                <select
+                  id="devis-cat"
+                  v-model="formCategory"
+                  class="w-full px-3 py-2.5 bg-surface-container-low rounded-xl text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-highest/40"
+                >
+                  <option value="Laptops & Postes">Flotte d'ordinateurs portables &amp; Postes fixes</option>
+                  <option value="Impression & Toners">Imprimantes professionnelles &amp; Consommables</option>
+                  <option value="Serveurs & Réseaux">Infrastructures serveurs, baies et onduleurs</option>
+                  <option value="Contrat Infogérance">Contrat de maintenance annuelle IT</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block font-label-sm text-xs text-on-surface-variant mb-1" for="devis-details">
+                  Spécifications &amp; Quantités
+                </label>
+                <textarea
+                  id="devis-details"
+                  v-model="formDetails"
+                  class="w-full px-3 py-2.5 bg-surface-container-low rounded-xl text-xs text-on-surface focus:outline-none focus:ring-1 focus:ring-primary border border-surface-container-highest/40"
+                  placeholder="Précisez les quantités et le lieu de livraison (Bujumbura, Gitega, Ngozi)..."
+                  rows="3"
+                ></textarea>
+              </div>
+
+              <button
+                class="w-full inline-flex items-center justify-center gap-2 bg-primary text-on-primary hover:bg-primary-container font-label-md text-xs py-3 rounded-xl shadow-sm transition-all"
+                type="submit"
+              >
+                <span class="material-symbols-outlined text-sm">send</span>
+                <span>Transmettre la demande de devis</span>
+              </button>
+
+              <div
+                v-if="submitted"
+                class="text-center p-2.5 rounded-xl bg-[#dcfce7] text-[#15803d] text-xs font-medium"
+              >
+                Votre demande a été enregistrée. Notre service commercial vous recontacte rapidement.
+              </div>
+            </form>
           </div>
-        </div>
-        
-        <div class="contact-image">
-          <img src="/assets/img/hero-services.png" alt="Support Client EpiElectronics" />
-          <div class="image-overlay"></div>
         </div>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.contact-section {
-  padding: 100px 0;
-  background: white;
-}
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.contact-wrapper {
-  background: #0f172a;
-  border-radius: 32px;
-  overflow: hidden;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.15);
-}
-
-.contact-content {
-  padding: 64px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.badg {
-  display: inline-block;
-  background: rgba(59, 130, 246, 0.2);
-  color: #60a5fa;
-  padding: 8px 16px;
-  border-radius: 100px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 24px;
-  width: fit-content;
-}
-
-h2 {
-  font-size: 42px;
-  font-weight: 800;
-  color: white;
-  margin-bottom: 24px;
-  line-height: 1.2;
-}
-
-p {
-  font-size: 18px;
-  color: #94a3b8;
-  margin-bottom: 40px;
-  line-height: 1.6;
-}
-
-.contact-actions {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 48px;
-}
-
-.btn {
-  padding: 16px 32px;
-  border-radius: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.3s;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-primary {
-  background: #3b82f6;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #2563eb;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
-}
-
-.btn-secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.features-grid {
-  display: flex;
-  gap: 24px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 32px;
-}
-
-.feature-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #cbd5e1;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.feature-item i {
-  color: #3b82f6;
-}
-
-.contact-image {
-  position: relative;
-  overflow: hidden;
-  height: 100%;
-  min-height: 400px;
-}
-
-.contact-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.contact-wrapper:hover .contact-image img {
-  transform: scale(1.05);
-}
-
-@media (max-width: 968px) {
-  .contact-wrapper {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-content {
-    padding: 40px;
-  }
-
-  .contact-image {
-    height: 300px;
-    min-height: auto;
-  }
-  
-  h2 {
-    font-size: 32px;
-  }
-}
-
-@media (max-width: 640px) {
-  .contact-actions {
-    flex-direction: column;
-  }
-  
-  .features-grid {
-    flex-direction: column;
-    gap: 16px;
-  }
-}
-</style>

@@ -18,7 +18,7 @@ const routes = [
         name: 'Home',
         component: Home,
         meta: {
-            title: 'EpiElectronics - Matériel Informatique & Services IT au Burundi (Bujumbura, Gitega, Ngozi)'
+            title: 'EpiElectronics - Matériel Informatique & Services IT au Burundi'
         }
     },
     {
@@ -74,7 +74,7 @@ const routes = [
         name: 'Maintenance',
         component: Maintenance,
         meta: {
-            title: 'Maintenance Informatique Proactive - Burundi (Bujumbura, Gitega)'
+            title: 'Maintenance Informatique Proactive - Burundi'
         }
     },
     {

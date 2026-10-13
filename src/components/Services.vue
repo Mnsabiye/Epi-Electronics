@@ -1,207 +1,166 @@
 <script setup>
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-const navigateToService = (path) => {
-  router.push(path)
-}
 </script>
 
 <template>
-  <section class="services" id="services">
-    <div class="container">
-      <div class="section-header">
-        <span class="subtitle">Nos Expertises</span>
-        <h2>Des Solutions Complètes pour Votre Entreprise</h2>
-        <p>Une gamme de services professionnels pour soutenir votre infrastructure technologique.</p>
+  <!-- SERVICES IT CERTIFIÉS AÉRÉS -->
+  <section id="services-section" class="py-space-xl bg-surface-container-low/60 border-t border-surface-container-highest/40">
+    <div class="max-w-[1440px] mx-auto px-gutter-mobile md:px-gutter">
+      <div class="max-w-2xl mx-auto text-center mb-space-xl">
+        <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight font-bold">
+          Services
+        </h2>
+        <p class="font-body-md text-body-md text-on-surface-variant mt-2 font-light">
+          Maintenance préventive, infogérance et accompagnement technique au Burundi.
+        </p>
       </div>
 
-      <div class="service-container">
-        <div class="service-card web" @click="navigateToService('/services/web')">
-          <div class="card-overlay"></div>
-          <div class="card-content">
-            <div class="card-icon">
-              <i class="fas fa-laptop-code"></i>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+        <!-- Service 1: Maintenance & Infogérance -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl border border-surface-container-highest/60 hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-primary mb-space-md">
+              <span class="material-symbols-outlined text-2xl">support_agent</span>
             </div>
-            <h3>Sites Web & IA</h3>
-            <p>Création de sites web, intégration IA et marketing digital (Google/Meta Ads).</p>
+            <h3 class="font-headline-sm text-lg font-bold text-on-surface mb-2">
+              Maintenance &amp; Infogérance
+            </h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md font-light">
+              Support technique dédié aux banques, ONG et entreprises avec délai d'intervention sous 2h.
+            </p>
+            <ul class="space-y-2 text-xs text-on-surface font-medium">
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Intervention garantie sous 2h</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Prêt d'équipement de secours</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Visites préventives périodiques</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-space-md pt-space-xs border-t border-surface-container-highest/40 flex items-center justify-between">
+            <router-link
+              to="/services/maintenance"
+              class="text-primary font-label-md text-xs inline-flex items-center gap-1 font-bold hover:underline"
+            >
+              <span>Découvrir nos formules</span>
+              <span class="material-symbols-outlined text-sm">chevron_right</span>
+            </router-link>
+            <a
+              href="https://wa.me/25767405262?text=Bonjour%20EPI%20Electronics,%20je%20souhaite%20souscrire%20un%20contrat%20de%20maintenance%20IT"
+              target="_blank"
+              rel="noopener"
+              class="text-xs text-[#15803d] font-semibold hover:underline"
+            >
+              Souscrire
+            </a>
           </div>
         </div>
 
-        <div class="service-card maintenance" @click="navigateToService('/services/maintenance')">
-          <div class="card-overlay"></div>
-          <div class="card-content">
-            <div class="card-icon">
-              <i class="fas fa-tools"></i>
+        <!-- Service 2: Distribution -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl border border-surface-container-highest/60 hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-primary mb-space-md">
+              <span class="material-symbols-outlined text-2xl">local_shipping</span>
             </div>
-            <h3>Maintenance Proactive</h3>
-            <p>Support technique réactif et maintenance préventive pour assurer la continuité de vos opérations.</p>
+            <h3 class="font-headline-sm text-lg font-bold text-on-surface mb-2">
+              Distribution &amp; Équipement
+            </h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md font-light">
+              Fourniture de parcs informatiques complets, facturation normalisée et livraison sécurisée.
+            </p>
+            <ul class="space-y-2 text-xs text-on-surface font-medium">
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Facturation conforme OBR</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Livraison sécurisée sur tout le territoire</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Certificats d'origine constructeurs</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-space-md pt-space-xs border-t border-surface-container-highest/40 flex items-center justify-between">
+            <router-link
+              to="/services/distribution"
+              class="text-primary font-label-md text-xs inline-flex items-center gap-1 font-bold hover:underline"
+            >
+              <span>Découvrir la distribution</span>
+              <span class="material-symbols-outlined text-sm">chevron_right</span>
+            </router-link>
+            <router-link
+              to="/demandez-un-devis"
+              class="text-xs text-primary font-semibold hover:underline"
+            >
+              Demander un devis
+            </router-link>
           </div>
         </div>
 
-        <div class="service-card distribution" @click="navigateToService('/services/distribution')">
-          <div class="card-overlay"></div>
-          <div class="card-content">
-            <div class="card-icon">
-              <i class="fas fa-shopping-bag"></i>
+        <!-- Service 3: Réseaux & Systèmes -->
+        <div class="bg-surface-container-lowest p-space-lg rounded-2xl border border-surface-container-highest/60 hover:shadow-md transition-shadow flex flex-col justify-between">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-surface-container flex items-center justify-center text-primary mb-space-md">
+              <span class="material-symbols-outlined text-2xl">hub</span>
             </div>
-            <h3>Vente & Distribution</h3>
-            <p>Accès privilégié aux meilleures marques du marché pour vos équipements professionnels.</p>
+            <h3 class="font-headline-sm text-lg font-bold text-on-surface mb-2">
+              Réseaux &amp; Systèmes
+            </h3>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-md font-light">
+              Câblage structuré certifié, fibre optique, pare-feu, VPN d'agences et solutions applicatives web.
+            </p>
+            <ul class="space-y-2 text-xs text-on-surface font-medium">
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Audit technique &amp; câblage structuré</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Certification des liaisons réseau</span>
+              </li>
+              <li class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-[#15803d]">check</span>
+                <span>Interconnexion sécurisée de bureaux</span>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-space-md pt-space-xs border-t border-surface-container-highest/40 flex items-center justify-between">
+            <router-link
+              to="/services/web"
+              class="text-primary font-label-md text-xs inline-flex items-center gap-1 font-bold hover:underline"
+            >
+              <span>Solutions Réseaux &amp; Web</span>
+              <span class="material-symbols-outlined text-sm">chevron_right</span>
+            </router-link>
+            <a
+              href="https://wa.me/25767405262?text=Bonjour%20EPI%20Electronics,%20je%20souhaite%20contacter%20un%20ing%C3%A9nieur%20r%C3%A9seau"
+              target="_blank"
+              rel="noopener"
+              class="text-xs text-[#15803d] font-semibold hover:underline"
+            >
+              Ingénieur Direct
+            </a>
           </div>
         </div>
+      </div>
+
+      <div class="mt-space-lg text-center">
+        <router-link
+          to="/services"
+          class="inline-flex items-center gap-2 text-primary hover:text-primary-container font-label-md text-xs font-bold bg-surface-container-lowest px-5 py-2.5 rounded-xl border border-surface-container-highest/60 shadow-sm transition-all"
+        >
+          <span>Voir tous nos services &amp; contrats d'assistance</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </router-link>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.services {
-  padding: 120px 0;
-  background: white;
-}
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-.section-header {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 80px;
-}
-
-.subtitle {
-  color: #3b82f6;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-bottom: 16px;
-  display: block;
-}
-
-h2 {
-  font-size: 40px;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 24px;
-  letter-spacing: -0.02em;
-}
-
-.section-header p {
-  font-size: 18px;
-  color: #64748b;
-  line-height: 1.6;
-}
-
-.service-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
-}
-
-.service-card {
-  position: relative;
-  background-size: cover;
-  background-position: center;
-  border-radius: 24px;
-  padding: 40px;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(255,255,255,0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  min-height: 400px;
-  cursor: pointer;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-}
-
-.service-card.web { background-image: url('/assets/img/african-dev-standing.png'); }
-.service-card.maintenance { background-image: url('/assets/img/service-maintenance.png'); }
-.service-card.distribution { background-image: url('/assets/img/service-distribution.png'); }
-
-.card-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.4) 100%);
-  z-index: 1;
-  transition: all 0.3s ease;
-}
-
-.service-card:hover .card-overlay {
-  background: linear-gradient(to top, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.6) 100%);
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-
-.card-content {
-  position: relative;
-  z-index: 2;
-  color: white;
-}
-
-.card-icon {
-  width: 56px;
-  height: 56px;
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  font-size: 24px;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.2);
-}
-
-.service-card:hover .card-icon {
-  background: #3b82f6;
-  border-color: #3b82f6;
-  transform: scale(1.1);
-}
-
-.card-content h3 {
-  font-size: 26px;
-  font-weight: 700;
-  color: white;
-  margin-bottom: 12px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-.card-content p {
-  color: #e2e8f0;
-  line-height: 1.6;
-  font-size: 16px;
-  opacity: 0.9;
-}
-
-@media (max-width: 768px) {
-  .services {
-    padding: 80px 0;
-  }
-  
-  .container {
-    padding: 0 24px;
-  }
-
-  h2 {
-    font-size: 32px;
-  }
-  
-  .service-container {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-}
-</style>

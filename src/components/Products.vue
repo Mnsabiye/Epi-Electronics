@@ -1,228 +1,166 @@
 <script setup>
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue'
+import { products, formatBIF, addToQuoteBatch } from '../data/products.js'
 
-const router = useRouter()
+const selectedTab = ref('all')
+const addedFeedbackSlug = ref('')
 
-const featuredCategories = [
-    { 
-      id: 'laptops', 
-      slug: 'ordinateurs-portables', 
-      title: 'Ordinateurs Portables', 
-      description: 'Performance et mobilité pour les professionnels.',
-      image: '/assets/img/products/EliteBook x380 G8/IMG_0978.JPG',
-      tag: 'Bestsellers'
-    },
-    { 
-      id: 'printers', 
-      slug: 'imprimantes', 
-      title: 'Solutions d\'Impression', 
-      description: 'Fiabilité et économie pour vos documents.', 
-      image: '/assets/img/products/EPSON M338a/IMG_1015.JPG',
-      tag: 'Entreprise'
-    },
-    { 
-      id: 'accessories', 
-      slug: 'accessoires-peripheriques', 
-      title: 'Accessoires & Réseaux', 
-      description: 'Tous les essentiels pour votre connectivité.', 
-      image: '/assets/img/products/hp_wireless_mouse.JPG',
-      tag: 'Essentiels'
-    }
+const tabs = [
+  { id: 'all', label: 'Tous les modèles' },
+  { id: 'laptops', label: 'Ordinateurs' },
+  { id: 'printers', label: 'Impression' },
+  { id: 'power', label: 'Énergie & Onduleurs' },
+  { id: 'infrastructure', label: 'Serveurs & Réseaux' }
 ]
 
-const openCategory = (slug) => {
-    router.push({ name: 'Category', params: { slug } })
+const displayedProducts = computed(() => {
+  if (selectedTab.value === 'all') {
+    const featured = products.filter((p) => p.featuredHome)
+    return featured.length >= 4 ? featured.slice(0, 4) : products.slice(0, 4)
+  }
+  return products.filter((p) => p.category === selectedTab.value).slice(0, 4)
+})
+
+function handleQuickQuoteAdd(product) {
+  addToQuoteBatch(product, 1)
+  addedFeedbackSlug.value = product.slug
+  setTimeout(() => {
+    if (addedFeedbackSlug.value === product.slug) {
+      addedFeedbackSlug.value = ''
+    }
+  }, 1800)
 }
 </script>
 
 <template>
-  <section class="products" id="products">
-    <div class="container">
-      <div class="section-header">
-        <span class="subtitle">Notre Catalogue</span>
-        <h2>Produits Certifiés</h2>
-        <router-link to="/produits" class="view-all">
-          Tout voir <i class="fas fa-arrow-right"></i>
-        </router-link>
+  <!-- CATALOGUE PRODUITS DISPONIBLES -->
+  <section id="catalogue" class="py-space-xl">
+    <div class="max-w-[1440px] mx-auto px-gutter-mobile md:px-gutter">
+      <div class="flex flex-col md:flex-row md:items-center justify-between mb-space-lg gap-space-md">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight font-bold">
+            Dispo
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-1">
+          <button
+            v-for="tab in tabs"
+            :key="tab.id"
+            type="button"
+            :class="[
+              'font-label-md text-xs px-4 py-1.5 rounded-full transition-colors whitespace-nowrap',
+              selectedTab === tab.id
+                ? 'bg-primary text-on-primary shadow-sm font-bold'
+                : 'bg-surface-container-low hover:bg-surface-container text-on-surface'
+            ]"
+            @click="selectedTab = tab.id"
+          >
+            {{ tab.label }}
+          </button>
+        </div>
       </div>
 
-      <div class="products-grid">
-        <div 
-          v-for="category in featuredCategories" 
-          :key="category.id"
-          class="product-card"
-          @click="openCategory(category.slug)"
+      <!-- 4-Column Product Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-space-md">
+        <article
+          v-for="product in displayedProducts"
+          :key="product.id"
+          class="bg-surface-container-lowest rounded-2xl p-space-md border border-surface-container-highest/60 hover:shadow-lg transition-all flex flex-col justify-between group"
         >
-          <div class="card-image">
-            <img :src="category.image" :alt="category.title">
-            <span class="tag">{{ category.tag }}</span>
-            <div class="overlay">
-              <span class="btn-explore">Explorer</span>
+          <div>
+            <router-link
+              :to="`/produit/${product.slug}`"
+              class="block h-44 w-full bg-surface-container-low rounded-xl overflow-hidden mb-space-sm relative"
+            >
+              <img
+                :alt="product.name"
+                :src="product.image"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+              />
+            </router-link>
+
+            <span class="font-label-sm text-[11px] font-bold text-primary uppercase block">
+              {{ product.brandLabel || product.brand }}
+            </span>
+
+            <router-link :to="`/produit/${product.slug}`">
+              <h3 class="font-title-md text-title-md text-on-surface font-bold leading-snug group-hover:text-primary transition-colors">
+                {{ product.name }}
+              </h3>
+            </router-link>
+
+            <p class="font-body-sm text-xs text-on-surface-variant my-1 font-light line-clamp-1">
+              {{ product.shortDesc }}
+            </p>
+
+            <div class="bg-surface-container-low rounded-lg p-2.5 text-xs space-y-1 text-on-surface-variant my-2">
+              <div
+                v-for="(spec, idx) in (product.homeSpecs || product.specs.slice(0, 2))"
+                :key="idx"
+                class="flex justify-between gap-2"
+              >
+                <span>{{ spec.label }} :</span>
+                <span class="text-on-surface font-medium text-right truncate">{{ spec.value }}</span>
+              </div>
             </div>
           </div>
-          <div class="card-content">
-            <h3>{{ category.title }}</h3>
-            <p>{{ category.description }}</p>
+
+          <div class="pt-2.5 border-t border-surface-container-highest/40">
+            <div class="font-headline-sm text-primary font-bold">
+              {{ formatBIF(product.price) }} BIF
+            </div>
+            <span class="font-label-sm text-[11px] text-on-surface-variant block mb-2.5 truncate">
+              {{ product.priceSubtext || 'Tarif HTVA (Facture OBR)' }}
+            </span>
+
+            <div class="grid grid-cols-2 gap-1.5">
+              <button
+                type="button"
+                class="w-full inline-flex items-center justify-center gap-1 bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-md text-xs py-2 rounded-xl transition-all"
+                @click="handleQuickQuoteAdd(product)"
+              >
+                <span class="material-symbols-outlined text-sm">
+                  {{ addedFeedbackSlug === product.slug ? 'check' : 'post_add' }}
+                </span>
+                <span>{{ addedFeedbackSlug === product.slug ? 'Ajouté' : 'Ajouter Devis' }}</span>
+              </button>
+
+              <a
+                class="w-full inline-flex items-center justify-center gap-1 bg-primary text-on-primary hover:bg-primary-container font-label-md text-xs py-2 rounded-xl transition-all shadow-sm"
+                :href="`https://wa.me/25767405262?text=${encodeURIComponent('Commande / Devis ' + product.name + ' (' + formatBIF(product.price) + ' BIF)')}`"
+                rel="noopener"
+                target="_blank"
+              >
+                <span class="material-symbols-outlined text-sm">chat</span>
+                <span>Commander</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- Footer Link to Complete Catalogue -->
+      <div class="mt-space-lg flex flex-col sm:flex-row items-center justify-between gap-4 bg-surface-container-low/80 p-space-md rounded-2xl border border-surface-container-highest/50">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-primary text-2xl">inventory</span>
+          <div>
+            <div class="font-title-md text-sm font-bold text-on-surface">
+              Catalogue Complet ({{ products.length }} références disponibles)
+            </div>
+            <div class="font-body-sm text-xs text-on-surface-variant">
+              Filtrez par processeur, capacité RAM, marque constructeur et budget en BIF.
+            </div>
           </div>
         </div>
+        <router-link
+          to="/produits"
+          class="inline-flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container font-label-md text-xs px-5 py-2.5 rounded-xl shadow-sm transition-all shrink-0"
+        >
+          <span>Ouvrir le Catalogue Complet</span>
+          <span class="material-symbols-outlined text-base">arrow_forward</span>
+        </router-link>
       </div>
     </div>
   </section>
 </template>
-
-<style scoped>
-.products {
-  padding: 120px 0;
-  background: white;
-}
-
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-.section-header {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-bottom: 60px;
-  position: relative;
-}
-
-.subtitle {
-  color: #3b82f6;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  font-size: 14px;
-  margin-bottom: 12px;
-}
-
-h2 {
-  font-size: 40px;
-  font-weight: 800;
-  color: #0f172a;
-  margin-bottom: 0;
-  letter-spacing: -0.02em;
-}
-
-.view-all {
-  position: absolute;
-  right: 0;
-  bottom: 10px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #1e3a8a;
-  font-weight: 600;
-  text-decoration: none;
-  transition: gap 0.2s ease;
-}
-
-.view-all:hover {
-  gap: 12px;
-  text-decoration: underline;
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 40px;
-}
-
-.product-card {
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.card-image {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  aspect-ratio: 4/3;
-  margin-bottom: 24px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-.card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s ease;
-}
-
-.product-card:hover .card-image img {
-  transform: scale(1.05);
-}
-
-.tag {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  padding: 6px 14px;
-  border-radius: 50px;
-  font-size: 12px;
-  font-weight: 600;
-  color: #0f172a;
-  z-index: 2;
-}
-
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(15, 23, 42, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.product-card:hover .overlay {
-  opacity: 1;
-}
-
-.btn-explore {
-  background: white;
-  color: #0f172a;
-  padding: 12px 28px;
-  border-radius: 50px;
-  font-weight: 600;
-  transform: translateY(20px);
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover .btn-explore {
-  transform: translateY(0);
-}
-
-.card-content h3 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 8px;
-}
-
-.card-content p {
-  color: #64748b;
-  font-size: 16px;
-}
-
-@media (max-width: 768px) {
-  .section-header {
-    align-items: flex-start;
-  }
-  
-  .view-all {
-    position: static;
-    margin-top: 16px;
-  }
-  
-  .products-grid {
-    grid-template-columns: 1fr;
-  }
-}
-</style>

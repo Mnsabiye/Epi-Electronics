@@ -6,14 +6,12 @@ import ContactSection from '../components/ContactSection.vue'
 </script>
 
 <template>
-  <main>
-    <Hero />
-    <Products />
-    <Services />
-    <ContactSection />
+  <main class="w-full pt-16 bg-background min-h-screen">
+    <div class="flex flex-col w-full">
+      <Hero />
+      <Products />
+      <Services />
+      <ContactSection />
+    </div>
   </main>
 </template>
-
-<style scoped>
-/* Page-specific styles if needed */
-</style>

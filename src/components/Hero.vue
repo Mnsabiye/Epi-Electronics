@@ -1,299 +1,178 @@
 <script setup>
-import { onMounted, ref } from 'vue'
-import gsap from 'gsap'
-
-const heroSection = ref(null)
-const heroContent = ref(null)
-const heroImage = ref(null)
-
-onMounted(() => {
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-  
-  tl.fromTo(heroContent.value.children, 
-    { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 1, stagger: 0.2 }
-  )
-  .fromTo(heroImage.value,
-    { x: 30, opacity: 0 },
-    { x: 0, opacity: 1, duration: 1.2 },
-    "-=0.8"
-  )
-})
 </script>
 
 <template>
-  <section class="hero" id="home" ref="heroSection">
-    <div class="container hero-container">
-      <div class="hero-content" ref="heroContent">
-        <div class="hero-badge">
-          <span class="badge-dot"></span>
-          <span>Solutions Technologiques d'Entreprise</span>
-        </div>
-        
-        <h1>
-          L'Électronique <br>
-          <span class="highlight">d'Excellence</span> <br>
-          au Burundi
-        </h1>
-        
-        <p>
-          Demandez votre devis maintenant ou contactez-nous sur WhatsApp pour une collaboration directe.
-        </p>
+  <div>
+    <!-- HERO PAYSAGE EN ARRIÈRE-PLAN (FULL-BLEED LANDSCAPE BACKGROUND) -->
+    <section class="relative min-h-[540px] lg:min-h-[600px] flex items-center py-space-xl overflow-hidden bg-[#07162c]">
+      <!-- Landscape Background Picture with WebP + Progressive JPEG Fallback -->
+      <picture class="absolute inset-0 w-full h-full pointer-events-none select-none overflow-hidden">
+        <source srcset="/assets/img/hero-coworking-sunset.webp" type="image/webp" />
+        <img
+          src="/assets/img/hero-coworking-sunset.jpg"
+          alt="Espace de travail moderne équipé par EPI Electronics à Bujumbura au coucher du soleil"
+          class="w-full h-full object-cover object-center blur-[2.5px] scale-[1.03] transform transition-transform"
+          fetchpriority="high"
+        />
+      </picture>
 
-        <div class="hero-actions">
-          <router-link to="/demandez-un-devis" class="btn btn-primary">
-            Demander un Devis
-          </router-link>
-          <router-link to="/produits" class="btn btn-secondary">
-            Voir le Catalogue
-          </router-link>
-        </div>
+      <!-- Directional Contrast Overlay to keep Left Text Crisp and Right Landscape Clear -->
+      <div
+        class="absolute inset-0 bg-gradient-to-r from-[#061429]/92 via-[#061429]/72 to-[#061429]/20 pointer-events-none"
+      ></div>
 
-        <div class="trust-indicators">
-          <div class="indicator">
-            <i class="fas fa-check-circle"></i>
-            <span>Matériel Certifié</span>
+      <div class="relative z-10 max-w-[1440px] w-full mx-auto px-gutter-mobile md:px-gutter">
+        <div class="max-w-2xl flex flex-col items-start">
+          <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-white tracking-tight mb-space-lg leading-tight drop-shadow-xs">
+            La Révolution Technologique au Burundi
+          </h1>
+
+          <div class="flex flex-wrap items-center gap-3 mb-space-xl">
+            <router-link
+              to="/demandez-un-devis"
+              class="inline-flex items-center gap-2 bg-primary text-on-primary hover:bg-primary-container font-label-md px-6 py-3 rounded-xl shadow-md transition-all"
+            >
+              <span>Demander un devis</span>
+              <span class="material-symbols-outlined text-lg">arrow_forward</span>
+            </router-link>
+
+            <router-link
+              to="/produits"
+              class="inline-flex items-center gap-2 bg-white/12 hover:bg-white/20 backdrop-blur-md text-white font-label-md px-5 py-3 rounded-xl border border-white/25 transition-all"
+            >
+              <span class="material-symbols-outlined text-base">inventory_2</span>
+              <span>Voir le catalogue</span>
+            </router-link>
           </div>
-          <div class="indicator">
-            <i class="fas fa-shield-alt"></i>
-            <span>Garantie Incluse</span>
-          </div>
-          <div class="indicator">
-            <i class="fas fa-headset"></i>
-            <span>Support Expert</span>
+
+          <!-- Institutional Trust Metrics -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 w-full pt-space-md border-t border-white/15">
+            <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/15">
+              <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-white shrink-0">
+                <span class="material-symbols-outlined text-lg">verified_user</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-white font-bold leading-tight">+500</span>
+                <span class="font-label-sm text-xs text-white/80">Entreprises, ONG &amp; Banques</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/15">
+              <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-white shrink-0">
+                <span class="material-symbols-outlined text-lg">receipt_long</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-white font-bold leading-tight">100%</span>
+                <span class="font-label-sm text-xs text-white/80">Conforme OBR &amp; NIF (BIF)</span>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2.5 bg-white/10 backdrop-blur-md p-3 rounded-xl border border-white/15">
+              <div class="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center text-white shrink-0">
+                <span class="material-symbols-outlined text-lg">local_shipping</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-headline-sm text-white font-bold leading-tight">24/48h</span>
+                <span class="font-label-sm text-xs text-white/80">Livraison provinciale</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      
-      <div class="hero-visual" ref="heroImage">
-        <div class="image-wrapper">
-          <img src="/assets/img/hero-quote.png" alt="Équipement électronique professionnel" />
-          <div class="gradient-overlay"></div>
+    </section>
+
+    <!-- SECTION SOLUTIONS (3 CATÉGORIES ÉPURÉES) -->
+    <section class="py-space-xl bg-surface-container-low/60 border-y border-surface-container-highest/40">
+      <div class="max-w-[1440px] mx-auto px-gutter-mobile md:px-gutter">
+        <div class="mb-space-lg">
+          <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface tracking-tight font-bold">
+            Solutions
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+          <!-- 1: Laptops -->
+          <router-link
+            to="/categorie/ordinateurs-portables-stations"
+            class="bg-surface-container-lowest p-space-md rounded-2xl border border-surface-container-highest/60 hover:shadow-md transition-all group flex flex-col justify-between"
+          >
+            <div>
+              <div class="w-full h-44 rounded-xl overflow-hidden mb-space-md bg-surface-container">
+                <img
+                  alt="Laptops"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  src="/assets/img/stitch/03-laptops-b2b.jpg"
+                />
+              </div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="material-symbols-outlined text-primary text-lg">laptop_mac</span>
+                <h3 class="font-title-md text-title-md text-on-surface font-bold">Laptops</h3>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm font-light">
+                Parcs informatiques d'entreprise HP, Dell, Lenovo et Apple prêts au déploiement.
+              </p>
+            </div>
+            <div class="font-label-md text-xs text-primary font-semibold inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+              <span>Découvrir</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </div>
+          </router-link>
+
+          <!-- 2: Impression -->
+          <router-link
+            to="/categorie/imprimantes-scanners-pro"
+            class="bg-surface-container-lowest p-space-md rounded-2xl border border-surface-container-highest/60 hover:shadow-md transition-all group flex flex-col justify-between"
+          >
+            <div>
+              <div class="w-full h-44 rounded-xl overflow-hidden mb-space-md bg-surface-container">
+                <img
+                  alt="Impression"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  src="/assets/img/stitch/04-impression-bureau.jpg"
+                />
+              </div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="material-symbols-outlined text-primary text-lg">print</span>
+                <h3 class="font-title-md text-title-md text-on-surface font-bold">Impression</h3>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm font-light">
+                Systèmes laser et réservoirs EcoTank économiques avec consommables d'origine.
+              </p>
+            </div>
+            <div class="font-label-md text-xs text-primary font-semibold inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+              <span>Découvrir</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </div>
+          </router-link>
+
+          <!-- 3: Réseaux -->
+          <router-link
+            to="/categorie/reseau-securite-entreprise"
+            class="bg-surface-container-lowest p-space-md rounded-2xl border border-surface-container-highest/60 hover:shadow-md transition-all group flex flex-col justify-between"
+          >
+            <div>
+              <div class="w-full h-44 rounded-xl overflow-hidden mb-space-md bg-surface-container">
+                <img
+                  alt="Réseaux"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  src="/assets/img/stitch/05-r-seaux-amp-nergie.jpg"
+                />
+              </div>
+              <div class="flex items-center gap-2 mb-1">
+                <span class="material-symbols-outlined text-primary text-lg">router</span>
+                <h3 class="font-title-md text-title-md text-on-surface font-bold">Réseaux</h3>
+              </div>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mb-space-sm font-light">
+                Switches, routeurs d'entreprise Cisco et protection de puissance APC Smart-UPS.
+              </p>
+            </div>
+            <div class="font-label-md text-xs text-primary font-semibold inline-flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
+              <span>Découvrir</span>
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </div>
+          </router-link>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 </template>
-
-<style scoped>
-.hero {
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  overflow: hidden;
-  padding-top: 100px;
-  background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
-}
-
-.hero-container {
-  display: grid;
-  grid-template-columns: 1.2fr 1fr;
-  gap: 80px;
-  align-items: center;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-
-/* Content Styles */
-.hero-content {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 16px;
-  background: white;
-  border-radius: 100px;
-  box-shadow: 0 2px 10px rgba(30, 58, 138, 0.05);
-  margin-bottom: 32px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-primary);
-  border: 1px solid rgba(30, 58, 138, 0.1);
-}
-
-.badge-dot {
-  width: 8px;
-  height: 8px;
-  background: #22c55e;
-  border-radius: 50%;
-  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
-}
-
-h1 {
-  font-size: clamp(48px, 4.5vw, 64px);
-  font-weight: 800;
-  line-height: 1.1;
-  color: #0f172a;
-  margin-bottom: 24px;
-  letter-spacing: -0.02em;
-}
-
-.highlight {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-p {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #64748b;
-  margin-bottom: 40px;
-  max-width: 540px;
-}
-
-/* Actions */
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 48px;
-}
-
-.btn {
-  padding: 16px 32px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 16px;
-  transition: all 0.3s ease;
-  text-decoration: none;
-}
-
-.btn-primary {
-  background: #1e3a8a;
-  color: white;
-  box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
-}
-
-.btn-primary:hover {
-  background: #172554;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);
-}
-
-.btn-secondary {
-  background: white;
-  color: #1e3a8a;
-  border: 1px solid rgba(30, 58, 138, 0.1);
-}
-
-.btn-secondary:hover {
-  background: #f1f5f9;
-  border-color: rgba(30, 58, 138, 0.2);
-}
-
-/* Trust Indicators */
-.trust-indicators {
-  display: flex;
-  gap: 32px;
-  border-top: 1px solid #e2e8f0;
-  padding-top: 32px;
-  width: 100%;
-}
-
-.indicator {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #475569;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.indicator i {
-  color: #3b82f6;
-  font-size: 16px;
-}
-
-/* Visual Styles */
-.hero-visual {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.image-wrapper {
-  position: relative;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 20px 50px rgba(30, 58, 138, 0.1);
-  background: white;
-}
-
-.image-wrapper img {
-  width: 100%;
-  height: auto;
-  display: block;
-  transform: scale(1.02);
-  transition: transform 0.8s ease;
-}
-
-.hero-visual:hover img {
-  transform: scale(1.05);
-}
-
-.gradient-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(45deg, rgba(30, 58, 138, 0.1) 0%, transparent 100%);
-  pointer-events: none;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .hero-container {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-    padding-top: 40px;
-  }
-
-  .hero-content {
-    align-items: center;
-  }
-
-  p {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-actions {
-    justify-content: center;
-  }
-
-  .trust-indicators {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 640px) {
-  h1 {
-    font-size: 40px;
-  }
-
-  .hero-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .btn {
-    width: 100%;
-    text-align: center;
-  }
-  
-  .trust-indicators {
-    flex-wrap: wrap;
-    gap: 20px;
-  }
-}
-</style>

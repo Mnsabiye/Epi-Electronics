@@ -1,565 +1,203 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { getCategoryBySlug, formatPrice } from '../data/products.js'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
+import {
+  categories,
+  getCategoryBySlug,
+  getProductsByCategory,
+  formatBIF,
+  addToQuoteBatch
+} from '../data/products.js'
 
 const route = useRoute()
-const router = useRouter()
+const addedFeedbackId = ref(null)
 
-const category = computed(() => getCategoryBySlug(route.params.slug))
-const loading = ref(true)
+const currentCategory = computed(() => getCategoryBySlug(String(route.params.slug || '')))
+const categoryProducts = computed(() => getProductsByCategory(String(route.params.slug || '')))
 
-onMounted(() => {
-  // Simulate loading for smooth transition
+function handleAddToQuote(product) {
+  addToQuoteBatch(product, 1)
+  addedFeedbackId.value = product.id
   setTimeout(() => {
-    loading.value = false
-    if (!category.value) {
-      router.push({ name: 'NotFound' })
+    if (addedFeedbackId.value === product.id) {
+      addedFeedbackId.value = null
     }
-  }, 300)
-})
-
-const goToProduct = (productSlug) => {
-  router.push({ name: 'ProductDetail', params: { slug: productSlug } })
+  }, 1800)
 }
 </script>
 
 <template>
-  <div class="category-page">
-    <!-- Loading State -->
-    <div v-if="loading" class="loading-container">
-      <div class="spinner"></div>
-    </div>
+  <main class="w-full pt-16 bg-background min-h-screen">
+    <div v-if="currentCategory" class="flex flex-col w-full">
+      <!-- Category Hero Header -->
+      <section class="w-full bg-surface-container-low py-space-xl px-gutter-mobile md:px-gutter border-b border-surface-container-highest/40">
+        <div class="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-center">
+          <div class="lg:col-span-8 space-y-space-sm">
+            <div class="flex items-center gap-2 font-label-sm text-label-sm text-on-surface-variant flex-wrap">
+              <router-link to="/" class="hover:text-primary transition-colors">Accueil</router-link>
+              <span>/</span>
+              <router-link to="/produits" class="hover:text-primary transition-colors">Catalogue</router-link>
+              <span>/</span>
+              <span class="text-primary font-bold">{{ currentCategory.name }}</span>
+            </div>
 
-    <!-- Category Content -->
-    <div v-else-if="category" class="category-content">
-      <!-- Hero Section -->
-      <section class="category-hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <h1 class="category-title">{{ category.title }}</h1>
-          <p class="category-description">{{ category.description }}</p>
-          <div class="breadcrumb">
-            <router-link to="/">Accueil</router-link>
-            <span class="separator">/</span>
-            <span>{{ category.title }}</span>
+            <h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface font-extrabold tracking-tight">
+              {{ currentCategory.name }}
+            </h1>
+            <p class="font-body-lg text-body-md text-on-surface-variant max-w-2xl">
+              {{ currentCategory.description }}
+            </p>
+
+            <!-- Category Quick Switcher Pills -->
+            <div class="flex items-center gap-2 overflow-x-auto pt-2 pb-1">
+              <router-link
+                to="/produits"
+                class="shrink-0 px-3.5 py-1.5 rounded-lg bg-surface-container-lowest text-on-surface-variant hover:text-primary font-label-sm text-xs border border-surface-container-highest/50"
+              >
+                Tout le Catalogue
+              </router-link>
+              <router-link
+                v-for="cat in categories"
+                :key="cat.slug"
+                :to="`/categorie/${cat.slug}`"
+                :class="[
+                  'shrink-0 px-3.5 py-1.5 rounded-lg font-label-sm text-xs transition-all',
+                  cat.slug === currentCategory.slug
+                    ? 'bg-primary text-on-primary font-bold shadow-sm'
+                    : 'bg-surface-container-lowest text-on-surface-variant hover:bg-surface-container hover:text-primary'
+                ]"
+              >
+                {{ cat.shortName }}
+              </router-link>
+            </div>
+          </div>
+
+          <div class="lg:col-span-4">
+            <div class="rounded-2xl overflow-hidden bg-surface-container-lowest p-3 shadow-sm border border-surface-container-highest/50">
+              <img
+                :alt="currentCategory.name"
+                :src="currentCategory.image"
+                class="w-full h-48 object-cover rounded-xl"
+              />
+            </div>
           </div>
         </div>
       </section>
 
       <!-- Products Grid -->
-      <section class="products-section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Tous les produits</h2>
-            <p>{{ category.products.length }} produit{{ category.products.length > 1 ? 's' : '' }} disponible{{ category.products.length > 1 ? 's' : '' }}</p>
-          </div>
-
-          <div class="products-grid">
-            <div 
-              v-for="product in category.products" 
-              :key="product.id"
-              class="product-card"
-              @click="goToProduct(product.slug)"
-            >
-              <div class="product-image-container">
-                <img 
-                  :src="product.images[0].src" 
-                  :alt="product.name"
-                  loading="lazy"
-                >
-                <div class="product-overlay">
-                  <button class="view-btn">
-                    <i class="fas fa-eye"></i>
-                    Voir les détails
-                  </button>
-                </div>
-                <div v-if="product.inStock" class="stock-badge in-stock">
-                  <i class="fas fa-check-circle"></i> En stock
-                </div>
-                <div v-else class="stock-badge out-of-stock">
-                  <i class="fas fa-times-circle"></i> Rupture
-                </div>
-              </div>
-
-              <div class="product-info">
-                <h3 class="product-name">{{ product.name }}</h3>
-                <p class="product-description">{{ product.description }}</p>
-                
-                <div class="product-footer">
-                  <div v-if="product.showPrice" class="price">{{ formatPrice(product.price, product.currency) }}</div>
-                  <router-link v-else to="/demandez-un-devis" class="quote-link">
-                    <i class="fas fa-file-invoice"></i>
-                    Demander un devis
-                  </router-link>
-                  <button v-if="product.showPrice" class="quick-order-btn">
-                    <i class="fab fa-whatsapp"></i>
-                    Commander
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+      <section class="w-full max-w-[1440px] mx-auto px-gutter-mobile md:px-gutter py-space-xl">
+        <div class="flex items-center justify-between mb-space-md">
+          <span class="font-title-md text-sm text-on-surface font-bold">
+            {{ categoryProducts.length }} équipement{{ categoryProducts.length > 1 ? 's' : '' }} disponible{{ categoryProducts.length > 1 ? 's' : '' }} dans ce rayon
+          </span>
+          <router-link
+            to="/demandez-un-devis"
+            class="text-xs font-label-md text-primary font-bold hover:underline inline-flex items-center gap-1"
+          >
+            <span>Demander une cotation groupée</span>
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </router-link>
         </div>
-      </section>
 
-      <!-- CTA Section -->
-      <section class="cta-section">
-        <div class="container">
-          <div class="cta-content">
-            <h2>Besoin d'aide pour choisir ?</h2>
-            <p>Notre équipe est là pour vous conseiller et répondre à toutes vos questions</p>
-            <div class="cta-buttons">
-              <a href="https://wa.me/25767405262" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                <i class="fab fa-whatsapp"></i>
-                Contactez-nous sur WhatsApp
-              </a>
-              <router-link to="/#contact" class="btn btn-secondary">
-                <i class="fas fa-envelope"></i>
-                Formulaire de contact
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-md">
+          <article
+            v-for="product in categoryProducts"
+            :key="product.id"
+            class="group bg-surface-container-lowest rounded-xl p-space-md shadow-sm hover:shadow-md border border-surface-container-highest/50 transition-all flex flex-col justify-between"
+          >
+            <div>
+              <router-link
+                :to="`/produit/${product.slug}`"
+                class="relative bg-surface-container-low rounded-lg p-space-sm aspect-[4/3] flex items-center justify-center overflow-hidden mb-space-sm block"
+              >
+                <img
+                  :alt="product.name"
+                  :src="product.image"
+                  class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+                />
               </router-link>
+
+              <div class="space-y-1">
+                <span class="font-code-num text-xs text-on-surface-variant uppercase tracking-wider block">
+                  REF: {{ product.ref }}
+                </span>
+                <router-link :to="`/produit/${product.slug}`">
+                  <h3 class="font-title-md text-title-md text-on-surface font-bold group-hover:text-primary transition-colors">
+                    {{ product.name }}
+                  </h3>
+                </router-link>
+                <p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-1">
+                  {{ product.shortDesc }}
+                </p>
+              </div>
+
+              <div class="mt-space-sm pt-space-xs space-y-1 bg-surface-container-low/60 p-2.5 rounded-lg font-body-sm text-body-sm">
+                <div
+                  v-for="(spec, sIdx) in product.specs"
+                  :key="sIdx"
+                  class="flex items-center justify-between text-xs text-on-surface-variant gap-2"
+                >
+                  <span class="flex items-center gap-1 shrink-0">
+                    <span class="material-symbols-outlined text-sm text-primary">{{ spec.icon }}</span>
+                    <span>{{ spec.label }}</span>
+                  </span>
+                  <strong class="font-code-num text-on-surface text-right truncate">{{ spec.value }}</strong>
+                </div>
+              </div>
             </div>
-          </div>
+
+            <div class="mt-space-md pt-space-xs">
+              <div class="flex flex-col mb-space-sm">
+                <div class="flex items-baseline gap-1.5">
+                  <span class="font-headline-sm text-headline-sm text-primary font-bold">
+                    {{ formatBIF(product.price) }}
+                  </span>
+                  <span class="font-label-md text-label-md text-on-surface font-semibold">BIF TTC</span>
+                </div>
+                <span class="font-label-sm text-label-sm text-on-surface-variant truncate">
+                  {{ product.priceSubtext }}
+                </span>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  class="w-full py-2 px-2 rounded-lg bg-surface-container hover:bg-primary hover:text-on-primary text-primary font-label-sm text-label-sm font-semibold transition-all flex items-center justify-center gap-1"
+                  @click="handleAddToQuote(product)"
+                >
+                  <span class="material-symbols-outlined text-base">
+                    {{ addedFeedbackId === product.id ? 'check' : 'post_add' }}
+                  </span>
+                  <span>{{ addedFeedbackId === product.id ? 'Ajouté !' : 'Ajouter Devis' }}</span>
+                </button>
+                <a
+                  class="w-full py-2 px-2 rounded-lg bg-[#25d366] hover:bg-[#1ebd5b] text-white font-label-sm text-label-sm font-semibold transition-all flex items-center justify-center gap-1 shadow-sm"
+                  :href="`https://wa.me/25767405262?text=${encodeURIComponent('Bonjour, je souhaite commander immédiatement ' + product.name + ' (' + formatBIF(product.price) + ' BIF)')}`"
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <span class="material-symbols-outlined text-base">chat</span>
+                  <span>WhatsApp</span>
+                </a>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
     </div>
-  </div>
+
+    <!-- Fallback if category slug not found -->
+    <div v-else class="max-w-[1440px] mx-auto px-gutter py-20 text-center space-y-4">
+      <span class="material-symbols-outlined text-5xl text-primary">inventory_2</span>
+      <h1 class="font-headline-md text-on-surface font-bold">Catégorie introuvable</h1>
+      <p class="font-body-md text-on-surface-variant">Consultez notre catalogue complet d'équipements.</p>
+      <router-link
+        to="/produits"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-on-primary font-label-md"
+      >
+        <span>Voir tout le catalogue</span>
+        <span class="material-symbols-outlined text-base">arrow_forward</span>
+      </router-link>
+    </div>
+  </main>
 </template>
-
-<style scoped>
-.category-page {
-  min-height: 100vh;
-  background: var(--color-background);
-}
-
-/* Loading State */
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-}
-
-.spinner {
-  width: 50px;
-  height: 50px;
-  border: 4px solid var(--color-border);
-  border-top-color: var(--color-primary);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Hero Section */
-.category-hero {
-  position: relative;
-  height: 400px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-  overflow: hidden;
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 30% 50%, rgba(30, 58, 138, 0.08) 0%, transparent 50%),
-              radial-gradient(circle at 70% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  padding: 0 24px;
-  max-width: 800px;
-}
-
-.category-title {
-  font-size: clamp(40px, 6vw, 64px);
-  font-weight: 800;
-  margin-bottom: 20px;
-  background: var(--gradient-cta);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.02em;
-}
-
-.category-description {
-  font-size: clamp(18px, 2vw, 24px);
-  color: var(--color-text-secondary);
-  margin-bottom: 30px;
-  line-height: 1.6;
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 14px;
-  color: var(--color-text-secondary);
-}
-
-.breadcrumb a {
-  color: var(--color-primary-light);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.breadcrumb a:hover {
-  color: var(--color-primary);
-}
-
-.separator {
-  opacity: 0.5;
-}
-
-/* Products Section */
-.products-section {
-  padding: 80px 24px;
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.section-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.section-header h2 {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: var(--color-text);
-}
-
-.section-header p {
-  font-size: 18px;
-  color: var(--color-text-secondary);
-}
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 32px;
-}
-
-.product-card {
-  background: var(--color-surface);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-xl), var(--shadow-glow);
-  border-color: var(--color-primary);
-}
-
-.product-image-container {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-.product-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 20px;
-  transition: transform 0.3s ease;
-}
-
-.product-card:hover .product-image-container img {
-  transform: scale(1.05);
-}
-
-.product-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.product-card:hover .product-overlay {
-  opacity: 1;
-}
-
-.view-btn {
-  background: var(--gradient-cta);
-  color: white;
-  border: none;
-  padding: 14px 28px;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform 0.2s;
-}
-
-.view-btn:hover {
-  transform: scale(1.05);
-}
-
-.stock-badge {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  padding: 8px 16px;
-  border-radius: var(--radius-md);
-  font-size: 13px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  backdrop-filter: blur(10px);
-}
-
-.stock-badge.in-stock {
-  background: rgba(34, 197, 94, 0.9);
-  color: white;
-}
-
-.stock-badge.out-of-stock {
-  background: rgba(239, 68, 68, 0.9);
-  color: white;
-}
-
-.product-info {
-  padding: 24px;
-}
-
-.product-name {
-  font-size: 20px;
-  font-weight: 700;
-  margin-bottom: 8px;
-  color: var(--color-text);
-}
-
-.product-description {
-  font-size: 14px;
-  color: var(--color-text-secondary);
-  margin-bottom: 20px;
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.product-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--color-border);
-}
-
-.price {
-  font-size: 24px;
-  font-weight: 700;
-  background: var(--gradient-cta);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.quote-link {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-primary);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
-}
-
-.quote-link:hover {
-  color: var(--color-primary-light);
-  transform: translateX(4px);
-}
-
-.quick-order-btn {
-  background: #25D366;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s;
-  white-space: nowrap;
-}
-
-.quick-order-btn:hover {
-  background: #1fb855;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-}
-
-/* CTA Section */
-.cta-section {
-  background: linear-gradient(135deg, #e0e7ff 0%, #f8fafc 100%);
-  padding: 80px 24px;
-  position: relative;
-  overflow: hidden;
-  border-top: 1px solid var(--color-border);
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(30, 58, 138, 0.05) 0%, transparent 70%);
-}
-
-.cta-content {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.cta-content h2 {
-  font-size: clamp(32px, 4vw, 48px);
-  font-weight: 700;
-  margin-bottom: 16px;
-  color: var(--color-text);
-}
-
-.cta-content p {
-  font-size: 18px;
-  color: var(--color-text-secondary);
-  margin-bottom: 32px;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn {
-  padding: 16px 32px;
-  border-radius: var(--radius-md);
-  font-weight: 600;
-  font-size: 16px;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  transition: all 0.3s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-primary {
-  background: #25D366;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #1fb855;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-}
-
-.btn-secondary {
-  background: var(--color-surface);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-}
-
-.btn-secondary:hover {
-  background: var(--color-surface-hover);
-  border-color: var(--color-primary);
-  transform: translateY(-2px);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .category-hero {
-    height: 300px;
-  }
-
-  .products-section {
-    padding: 60px 16px;
-  }
-
-  .products-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-
-  .section-header {
-    margin-bottom: 40px;
-  }
-
-  .cta-section {
-    padding: 60px 16px;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .product-footer {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .quick-order-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .products-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-</style>
